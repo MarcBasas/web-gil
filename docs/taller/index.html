@@ -14,10 +14,12 @@
   <link rel="stylesheet" href="taller.css">
   <script src="../assets/js/works.js"></script>
   <script src="../assets/js/viewer.js"></script>
+  <!-- Ordre important: i18n.js tradueix GIL abans que taller.js construeixi la pàgina -->
+  <script src="../assets/js/i18n.js" defer></script>
   <script src="taller.js" defer></script>
 </head>
 <body data-view="canvas">
-  <a class="skip-link" href="#llista">Salta a la llista d’obres</a>
+  <a class="skip-link" href="#llista" data-i18n="skip">Salta a la llista d’obres</a>
 
   <!-- Filtre SVG: converteix un dibuix negre sobre blanc en traç taronja transparent (capa d'accent del fons) -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -41,21 +43,30 @@
   <div class="world world--accent" aria-hidden="true">
     <div class="layer" id="layer-accent"></div>
   </div>
-  <div class="world" id="world" aria-label="Taula de treball. Arrossega per explorar les obres.">
+  <div class="world" id="world" data-i18n-aria="world_aria" aria-label="Taula de treball. Arrossega per explorar les obres.">
     <div class="layer" id="layer-main"></div>
   </div>
 
   <header class="ui ui--top">
     <button class="ui__home" type="button" id="home">Gil Farrés</button>
-    <nav class="ui__nav" aria-label="Informació">
-      <button type="button" id="open-about">Sobre mi</button>
-      <a href="mailto:gilfarres@gmail.com">Contacte</a>
+    <nav class="ui__nav" data-i18n-aria="nav_aria" aria-label="Informació">
+      <button type="button" id="open-about" data-i18n="about">Sobre mi</button>
+      <a href="mailto:gilfarres@gmail.com" data-i18n="contact">Contacte</a>
     </nav>
   </header>
 
   <div class="ui ui--bottom">
-    <p class="hint" id="hint">Arrossega per explorar</p>
-    <div class="filters" role="group" aria-label="Filtra les obres" id="filters"></div>
+    <!-- Abaix a l'esquerra: idioma (en contrapunt al botó Llista/Taulell de la dreta) -->
+    <div class="ui__left">
+      <p class="hint" id="hint" data-i18n="hint">Arrossega per explorar</p>
+      <!-- El nom visible és el codi curt; el nom accessible és l'idioma sencer (comença igual: «Català», «Español», «English») -->
+      <div class="langs" role="group" data-i18n-aria="lang_aria" aria-label="Llengua">
+        <button type="button" data-lang="ca" lang="ca" aria-label="Català" aria-pressed="true">cat</button>
+        <button type="button" data-lang="es" lang="es" aria-label="Español" aria-pressed="false">es</button>
+        <button type="button" data-lang="en" lang="en" aria-label="English" aria-pressed="false">en</button>
+      </div>
+    </div>
+    <div class="filters" role="group" data-i18n-aria="filters_aria" aria-label="Filtra les obres" id="filters"></div>
     <button class="viewtoggle" type="button" id="viewtoggle" aria-pressed="false">Llista</button>
   </div>
 
@@ -64,6 +75,7 @@
 
   <dialog class="about" id="about" aria-labelledby="about-t"></dialog>
 
-  <noscript><p style="position:fixed;inset:auto 1rem 1rem;color:#fff">Aquest web necessita JavaScript per mostrar les obres.</p></noscript>
+  <!-- Sense JavaScript no hi ha selector d'idioma: el missatge surt en els tres -->
+  <noscript><p style="position:fixed;inset:auto 1rem 1rem;color:#fff">Aquest web necessita JavaScript per mostrar les obres. · Esta web necesita JavaScript para mostrar las obras. · This site needs JavaScript to show the works.</p></noscript>
 </body>
 </html>

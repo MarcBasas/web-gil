@@ -266,10 +266,14 @@
   });
 
   /* ───────── Filtres ───────── */
-  const filtres = [['tot', 'Tot'], ['instal·lacions', 'Instal·lacions'], ['escenografia', 'Escenografia'], ['fars', 'FARS']];
+  // [clau interna (= data-tipus de les peces), clau del text a i18n.js]
+  const filtres = [['tot', 'f_tot'], ['instal·lacions', 'f_inst'], ['escenografia', 'f_esc'], ['fars', 'f_fars']];
   let filtreActual = 'tot';
   const fbox = document.getElementById('filters');
-  fbox.innerHTML = filtres.map(([k, t]) => `<button type="button" data-f="${k}" aria-pressed="${k === 'tot'}">${t}</button>`).join('');
+  const pintaFiltres = () => {
+    fbox.innerHTML = filtres.map(([k, tx]) => `<button type="button" data-f="${k}" aria-pressed="${k === filtreActual}">${esc(G.t(tx))}</button>`).join('');
+  };
+  pintaFiltres();
 
   function refiltra() {
     world.querySelectorAll('.piece').forEach((el) => {
@@ -296,30 +300,47 @@
 
   /* ───────── Vista en llista ───────── */
   const llista = document.getElementById('llista');
-  llista.innerHTML = G.projectes.map((p) => `
-    <article class="list__item">
-      <div class="list__head">
-        <h2>${esc(p.titol)}</h2>
-        <p>${esc(p.text)}</p>
-        <p class="meta">${esc(metaDe(p))}</p>
-      </div>
-      <div class="list__thumbs">
-        ${p.imatges.map((im, i) => `<button type="button" data-pid="${p.id}" data-i="${i}"><img src="${esc(im.src)}" width="${im.w}" height="${im.h}" alt="${esc(im.alt)}" loading="lazy" decoding="async"></button>`).join('')}
-      </div>
-    </article>`).join('');
+  const pintaLlista = () => {
+    llista.setAttribute('aria-label', G.t('list_aria'));
+    llista.innerHTML = G.projectes.map((p) => `
+      <article class="list__item">
+        <div class="list__head">
+          <h2>${esc(p.titol)}</h2>
+          <p>${esc(p.text)}</p>
+          <p class="meta">${esc(metaDe(p))}</p>
+        </div>
+        <div class="list__thumbs">
+          ${p.imatges.map((im, i) => `<button type="button" data-pid="${p.id}" data-i="${i}"><img src="${esc(im.src)}" width="${im.w}" height="${im.h}" alt="${esc(im.alt)}" loading="lazy" decoding="async"></button>`).join('')}
+        </div>
+      </article>`).join('');
+  };
+  pintaLlista();
   llista.addEventListener('click', (e) => {
     const b = e.target.closest('button'); if (!b) return;
     obre(G.per(b.dataset.pid), +b.dataset.i, b.querySelector('img'));
   });
 
+  /* La llista té el seu propi scroll (no el de la pàgina): així la pàgina no canvia mai d'amplada en passar
+     de taulell a llista i res de l'interfície es belluga. La barra és taronja sobre fons transparent (CSS);
+     --sbw és el seu gruix real, perquè les franges blaves de dalt i de baix no la tapin. */
+  const midaBarra = () => {
+    document.documentElement.style.setProperty('--sbw', `${llista.hidden ? 0 : llista.offsetWidth - llista.clientWidth}px`);
+  };
+  addEventListener('resize', midaBarra);
+
   const toggle = document.getElementById('viewtoggle');
+  const etiquetaToggle = () => { toggle.textContent = G.t(document.body.dataset.view === 'list' ? 'v_board' : 'v_list'); };
+  etiquetaToggle();
   toggle.addEventListener('click', () => {
     const aLlista = document.body.dataset.view === 'canvas';
     document.body.dataset.view = aLlista ? 'list' : 'canvas';
     llista.hidden = !aLlista;
-    toggle.textContent = aLlista ? 'Taulell' : 'Llista';
+    etiquetaToggle();
     toggle.setAttribute('aria-pressed', String(aLlista));
-    scrollTo(0, 0);
+    llista.scrollTop = 0;
+    midaBarra();
+    // perquè les tecles (RePàg, fletxes, Espai) desplacin la llista
+    if (aLlista) { llista.tabIndex = -1; llista.focus({ preventScroll: true }); }
   });
 
   // l'enllaç «Salta a la llista» obre la vista en llista (el taulell no és navegable amb lector de pantalla)
@@ -332,21 +353,47 @@
 
   /* ───────── Sobre mi ───────── */
   const about = document.getElementById('about');
-  about.innerHTML = `
-    <button type="button" class="about__close" data-close>Tanca</button>
-    <div class="about__inner">
-      <h2 id="about-t">${esc(G.nom)}</h2>
-      <figure><img src="${esc(G.retrat.src)}" width="${G.retrat.w}" height="${G.retrat.h}" alt="${esc(G.retrat.alt)}" decoding="async"><figcaption>${esc(G.lloc)}</figcaption></figure>
-      <div class="about__text">${G.bio.map((t) => `<p>${esc(t)}</p>`).join('')}</div>
-      <div class="about__block"><h3>Formació</h3>
-        <ul>${G.formacio.map((f) => `<li><span class="yr">${esc(f.any)}</span>${esc(f.titol)}, ${esc(f.lloc)}</li>`).join('')}</ul></div>
-      <div class="about__block"><h3>Experiència</h3>
-        <ul>${G.experiencia.map((x) => `<li><span class="yr">${esc(x.any)}</span>${esc(x.text)}</li>`).join('')}</ul></div>
-      <p class="about__links"><a href="mailto:${esc(G.email)}">${esc(G.email)}</a>
-        <a href="${esc(G.instagram.url)}" target="_blank" rel="noopener">${esc(G.instagram.usuari)}</a></p>
-    </div>`;
+  const pintaAbout = () => {
+    about.innerHTML = `
+      <button type="button" class="about__close" data-close>${esc(G.t('close'))}</button>
+      <div class="about__inner">
+        <h2 id="about-t">${esc(G.nom)}</h2>
+        <figure><img src="${esc(G.retrat.src)}" width="${G.retrat.w}" height="${G.retrat.h}" alt="${esc(G.retrat.alt)}" decoding="async"><figcaption>${esc(G.lloc)}</figcaption></figure>
+        <div class="about__text">${G.bio.map((t) => `<p>${esc(t)}</p>`).join('')}</div>
+        <div class="about__block"><h3>${esc(G.t('formation'))}</h3>
+          <ul>${G.formacio.map((f) => `<li><span class="yr">${esc(f.any)}</span>${esc(f.titol)}, ${esc(f.lloc)}</li>`).join('')}</ul></div>
+        <div class="about__block"><h3>${esc(G.t('experience'))}</h3>
+          <ul>${G.experiencia.map((x) => `<li><span class="yr">${esc(x.any)}</span>${esc(x.text)}</li>`).join('')}</ul></div>
+        <p class="about__links"><a href="mailto:${esc(G.email)}">${esc(G.email)}</a>
+          <a href="${esc(G.instagram.url)}" target="_blank" rel="noopener">${esc(G.instagram.usuari)}</a></p>
+      </div>`;
+  };
+  pintaAbout();
   document.getElementById('open-about').addEventListener('click', () => about.showModal());
   about.addEventListener('click', (e) => { if (e.target.closest('[data-close]')) about.close(); });
+
+  /* ───────── Canvi d'idioma ─────────
+     i18n.js ja ha reescrit GIL (títols, alts, biografia...) i el text estàtic de la pàgina.
+     Aquí s'actualitza el que construeix aquest fitxer. Les peces del taulell no es tornen a crear
+     (la càmera i el focus es queden com estan): només es canvien l'alt i el rètol. */
+  const textosPeces = () => {
+    world.querySelectorAll('.piece').forEach((el) => {
+      const p = G.per(el.dataset.pid);
+      if (el.tagName === 'BUTTON') el.querySelector('img').alt = p.imatges[+el.dataset.i].alt;   // els clons són decoratius (alt buit)
+      el.querySelector('.piece__cap').textContent = `${p.curt}, ${p.any}`;
+    });
+  };
+  const alIdioma = () => {
+    textosPeces();
+    pintaFiltres();
+    pintaLlista();
+    pintaAbout();
+    etiquetaToggle();
+    GilViewer.setLabels({ aria: G.t('viewer_aria'), prev: G.t('prev'), next: G.t('next'), close: G.t('close') });
+    midaBarra();   // el contingut de la llista ha canviat d'alçada
+  };
+  GilViewer.setLabels({ aria: G.t('viewer_aria'), prev: G.t('prev'), next: G.t('next'), close: G.t('close') });
+  addEventListener('gil:lang', alIdioma);
 
   /* Punt d'inici: el lloc del taulell on el nom (fix al centre) queda enmarcat per obres
      sense quedar tapat. Es calcula per cada mida de pantalla de forma determinista. */

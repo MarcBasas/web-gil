@@ -24,10 +24,11 @@ body {
   background: var(--cobalt);
   color: var(--on);
   font-weight: 300;
-  overflow: hidden;            /* el taulell ocupa tota la pantalla; la vista en llista torna a permetre scroll */
+  /* La pàgina mai fa scroll (ni al taulell ni a la llista): la llista té el seu propi contenidor amb scroll.
+     Així la pàgina no guanya ni perd barra en canviar de vista i res de l'interfície es belluga. */
+  overflow: hidden;
   overscroll-behavior: none;
 }
-body[data-view="list"] { overflow: auto; }
 
 /* ───── El nom, fix al fons ───── */
 /* Capes (de baix a dalt): dibuixos del fons (z 1) · el nom (z 2, abans al DOM) · fotos (z 2, després al DOM) */
@@ -112,15 +113,19 @@ body[data-view="list"] .world { display: none; }
 }
 .ui--top::before { background: linear-gradient(to bottom, var(--cobalt) 0%, color-mix(in srgb, var(--cobalt) 70%, transparent) 45%, transparent 100%); bottom: -1.6rem; }
 .ui--bottom::before { background: linear-gradient(to top, var(--cobalt) 0%, color-mix(in srgb, var(--cobalt) 70%, transparent) 45%, transparent 100%); top: -1.6rem; }
-body[data-view="list"] .ui::before { background: var(--cobalt); }
+/* a la llista, franja blava sòlida (el contingut passa per sota), sense tapar la barra de scroll */
+body[data-view="list"] .ui::before { background: var(--cobalt); right: var(--sbw, 0px); }
 .ui__nav { display: flex; gap: clamp(1rem, 2.4vw, 2rem); }
 .ui a { text-decoration: none; }
 .ui button, .ui a { padding-block: .2rem; border-bottom: 2px solid transparent; }
 .ui button:hover, .ui a:hover, .ui [aria-pressed="true"] { border-bottom-color: var(--orange); }
 .ui :focus-visible { outline-color: var(--orange); }
 
-.hint { transition: opacity .6s ease; margin-right: auto; font-weight: 300; }
+/* Abaix a l'esquerra: la pista (només al principi) damunt dels botons d'idioma, que es queden sempre */
+.ui__left { display: flex; flex-direction: column; align-items: flex-start; gap: .55rem; margin-right: auto; }
+.hint { transition: opacity .6s ease; font-weight: 300; }
 .hint.is-gone { opacity: 0; }
+.langs { display: flex; gap: clamp(.8rem, 1.6vw, 1.3rem); }
 .filters { display: flex; gap: clamp(.9rem, 2vw, 1.8rem); flex-wrap: wrap; justify-content: center; position: absolute; left: 50%; bottom: max(var(--margin), env(safe-area-inset-bottom)); transform: translateX(-50%); }
 .viewtoggle { margin-left: auto; }
 
@@ -128,11 +133,31 @@ body[data-view="list"] .ui::before { background: var(--cobalt); }
 body[data-view="list"] .filters,
 body[data-view="list"] .hint { display: none; }
 .list {
-  position: relative; z-index: 2;
+  position: fixed; inset: 0; z-index: 2;          /* contenidor amb scroll propi, a pantalla completa */
+  overflow-y: auto; overscroll-behavior: contain;
   padding: 8rem var(--margin) 8rem;
-  display: grid; gap: clamp(4rem, 10vw, 8rem);
+  display: grid; align-content: start; gap: clamp(4rem, 10vw, 8rem);
 }
+.list:focus { outline: none; }                    /* només rep el focus per programa (teclat: RePàg, fletxes) */
 .list[hidden] { display: none; }
+
+/* Barra de scroll: fons invisible i barra taronja (com la resta d'accents), sense fletxes.
+   · Chrome, Edge i Safari: ::-webkit-scrollbar (és l'únic que permet treure les fletxes de Windows).
+     Atenció: si aquí també hi hagués scrollbar-color, Chrome ignoraria tot això.
+   · Firefox: les propietats estàndard scrollbar-width / scrollbar-color. */
+.list::-webkit-scrollbar, .about::-webkit-scrollbar { width: 12px; }
+.list::-webkit-scrollbar-track, .about::-webkit-scrollbar-track,
+.list::-webkit-scrollbar-corner, .about::-webkit-scrollbar-corner { background: transparent; }
+.list::-webkit-scrollbar-button, .about::-webkit-scrollbar-button { display: none; }
+.list::-webkit-scrollbar-thumb, .about::-webkit-scrollbar-thumb {
+  background: var(--orange);
+  border: 3px solid transparent; background-clip: padding-box;     /* queda una barra fina (6 px) dins d'una zona d'agafar de 12 px */
+  min-height: 3rem;
+}
+.list::-webkit-scrollbar-thumb:hover, .about::-webkit-scrollbar-thumb:hover { background-color: #ffa565; background-clip: padding-box; }
+@supports not selector(::-webkit-scrollbar) {
+  .list, .about { scrollbar-width: thin; scrollbar-color: var(--orange) transparent; }
+}
 .list__item { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 12px; row-gap: 1.2rem; }
 .list__head { grid-column: 1 / span 4; }
 .list__head h2 { font-size: clamp(1.7rem, 3.2vw, 3rem); font-weight: 200; line-height: 1.05; text-wrap: balance; }
@@ -176,7 +201,7 @@ body[data-view="list"] .hint { display: none; }
   .ui { font-size: .92rem; }
   .ui--bottom { flex-wrap: wrap; row-gap: .8rem; }
   .filters { position: static; transform: none; order: 3; width: 100%; justify-content: flex-start; }
-  .hint { order: 1; }
+  .ui__left { order: 1; }
   .viewtoggle { order: 2; }
   .list__item { row-gap: 1.6rem; }
   .list__head, .list__thumbs { grid-column: 1 / -1; }

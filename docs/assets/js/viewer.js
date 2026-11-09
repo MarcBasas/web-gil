@@ -11,10 +11,19 @@
   let dlg, img, title, meta, text, prev, next;
   let state = null;
 
+  // Textos de l'interfície. Per defecte en català; una pàgina plurilingüe els canvia amb GilViewer.setLabels().
+  const labels = { aria: 'Imatge ampliada', prev: 'Anterior', next: 'Següent', close: 'Tanca' };
+  function paintLabels() {
+    if (!dlg) return;
+    dlg.setAttribute('aria-label', labels.aria);
+    dlg.querySelector('[data-act=prev]').textContent = labels.prev;
+    dlg.querySelector('[data-act=next]').textContent = labels.next;
+    dlg.querySelector('[data-act=close]').textContent = labels.close;
+  }
+
   function build() {
     dlg = document.createElement('dialog');
     dlg.className = 'viewer';
-    dlg.setAttribute('aria-label', 'Imatge ampliada');
     dlg.innerHTML = `
       <div class="viewer__stage"><img class="viewer__img" alt=""></div>
       <div class="viewer__bar">
@@ -24,12 +33,13 @@
           <p class="viewer__text"></p>
         </div>
         <div class="viewer__nav">
-          <button type="button" data-act="prev">Anterior</button>
-          <button type="button" data-act="next">Següent</button>
-          <button type="button" data-act="close">Tanca</button>
+          <button type="button" data-act="prev"></button>
+          <button type="button" data-act="next"></button>
+          <button type="button" data-act="close"></button>
         </div>
       </div>`;
     document.body.append(dlg);
+    paintLabels();
     img = dlg.querySelector('.viewer__img');
     title = dlg.querySelector('.viewer__title');
     meta = dlg.querySelector('.viewer__meta');
@@ -124,5 +134,7 @@
     }
   }
 
-  window.GilViewer = { open, close };
+  function setLabels(l) { Object.assign(labels, l); paintLabels(); }
+
+  window.GilViewer = { open, close, setLabels };
 })();
