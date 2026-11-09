@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Gil Farrés · Sala</title>
+  <meta name="description" content="Recorregut per l’obra de Gil Farrés: instal·lacions, escenografia i la marca FARS.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#26282b">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../assets/fonts/jost-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/viewer.css">
+  <link rel="stylesheet" href="sala.css">
+  <script src="../assets/js/works.js"></script>
+  <script src="../assets/js/viewer.js"></script>
+  <script src="sala.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#sales">Salta a les sales</a>
+
+  <header class="bar">
+    <a class="bar__brand" href="#entrada" data-room="entrada">Gil Farrés</a>
+    <details class="menu" id="menu">
+      <summary>Sales</summary>
+      <nav aria-label="Sales" id="nav"></nav>
+    </details>
+  </header>
+
+  <main class="walk" id="sales">
+    <div class="stage">
+      <div class="track" id="track"></div>
+    </div>
+  </main>
+
+  <footer class="hud" aria-hidden="true">
+    <p class="hud__now" id="now">Entrada</p>
+    <div class="hud__line"><span id="bar"></span></div>
+    <p class="hud__hint" id="hint">Desplaça’t per recórrer la sala</p>
+  </footer>
+
+  <noscript><p style="position:fixed;inset:auto 1rem 1rem;color:#fff">Aquest web necessita JavaScript per mostrar les sales.</p></noscript>
+</body>
+</html>

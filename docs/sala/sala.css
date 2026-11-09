@@ -1,0 +1,149 @@
+/*
+  Proposta 3 · Sala
+  Una exposició que es recorre en horitzontal. Cada sala és pintada amb el color del seu projecte,
+  amb la lletra gran com a vinil de paret, focus de llum sobre cada obra i cartel·les petites.
+  Un sol gest: el recorregut (la rotulació va més lenta que les obres, com si fos a més distància).
+*/
+:root {
+  --ui-ink: #efece6;
+  --m: clamp(1.1rem, 2.2vw, 2rem);
+  --viewer-bg: #1d1f22;
+  --viewer-ink: #f2efe9;
+}
+
+html { background: #26282b; }
+body { font-weight: 300; color: #efece6; }
+
+/* ───── Barra i indicador ───── */
+.bar {
+  position: fixed; inset: 0 0 auto 0; z-index: 30;
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem;
+  padding: var(--m); padding-top: max(var(--m), env(safe-area-inset-top));
+  color: var(--ui-ink);
+  font-size: .98rem; font-weight: 400;
+  pointer-events: none;
+}
+/* cada text fix agafa el color de la sala que té al darrere (sala.js) */
+.bar a, .bar summary, .hud p, .hud__line { transition: color .2s ease; }
+.bar a, .bar summary, .bar button { pointer-events: auto; text-decoration: none; }
+.bar a:hover, .bar a[aria-current="true"] { text-decoration: underline; text-underline-offset: .3em; }
+
+.menu { position: relative; pointer-events: auto; }
+.menu summary { list-style: none; cursor: pointer; display: none; }
+.menu summary::-webkit-details-marker { display: none; }
+.menu nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .2rem clamp(1rem, 2.2vw, 2rem); }
+
+.hud {
+  position: fixed; inset: auto 0 0 0; z-index: 30;
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.2rem;
+  padding: var(--m); padding-bottom: max(var(--m), env(safe-area-inset-bottom));
+  color: var(--ui-ink);
+  font-size: .9rem; font-weight: 400;
+  pointer-events: none;
+}
+.hud__line { height: 1px; background: color-mix(in srgb, currentColor 28%, transparent); position: relative; }
+.hud__line span { position: absolute; left: 0; top: -.5px; height: 2px; width: 100%; background: currentColor; transform-origin: left; transform: scaleX(0); }
+.hud__hint { transition: opacity .6s ease; }
+.hud__hint.is-gone { opacity: 0; }
+
+/* ───── La sala (mode recorregut) ───── */
+.walk { position: relative; }
+.stage { position: sticky; top: 0; height: 100svh; overflow: clip; }
+.track { display: flex; height: 100%; width: max-content; will-change: transform; }
+
+.room {
+  position: relative; isolation: isolate;
+  flex: none; height: 100%;
+  display: flex; align-items: center; gap: clamp(2.5rem, 6vw, 7rem);
+  padding-inline: clamp(2rem, 6vw, 7rem);
+  background: var(--wall); color: var(--ink);
+  overflow: clip;
+  box-shadow: inset 34px 0 44px -34px rgba(0, 0, 0, .38);   /* cantonada de la paret */
+}
+/* terra */
+.room::after {
+  content: ''; position: absolute; inset: auto 0 0 0; height: 14svh; z-index: -1;
+  background: color-mix(in srgb, var(--wall) 76%, #000);
+  border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+}
+
+.room__lettering {
+  position: absolute; left: clamp(2rem, 6vw, 7rem); top: 6svh; z-index: -1;
+  font-size: clamp(3.6rem, min(21svh, 27vw), 15rem); font-weight: 100; line-height: .88; letter-spacing: -.01em;
+  white-space: nowrap; pointer-events: none; user-select: none;
+  transform: translate3d(calc(var(--rel, 0) * .3px), 0, 0);   /* més lenta que les obres */
+}
+
+.room__text {
+  flex: none; width: min(22rem, 78vw);
+  align-self: flex-end; margin-bottom: 21svh;
+  font-size: .98rem; line-height: 1.5;
+}
+.room__text h2 { font-size: 1rem; font-weight: 500; line-height: 1.25; margin-bottom: .8rem; text-wrap: balance; }
+.room__text p + p { margin-top: .8rem; }
+.room__text .meta { opacity: .7; font-size: .88rem; }
+.room__text a { text-underline-offset: .22em; }
+
+.room__works { display: flex; align-items: center; gap: clamp(2rem, 5vw, 5.5rem); height: 100%; padding-bottom: 8svh; }
+
+.work { position: relative; flex: none; top: calc(var(--y, 0) * 1svh); }
+.work__btn { display: block; cursor: zoom-in; }
+.work img { height: calc(var(--h, 44) * 1svh); width: auto; max-width: none; }
+.work--multiply img { mix-blend-mode: multiply; }
+.work figcaption { margin-top: .7rem; font-size: .8rem; line-height: 1.3; max-width: 22ch; }
+.work figcaption b { display: block; font-weight: 500; }
+.work figcaption span { opacity: .72; }
+/* halo de llum darrere de cada obra (closest-side: s'esvaeix del tot abans de la vora, sense talls) */
+.work::before {
+  content: ''; position: absolute; z-index: -1; pointer-events: none;
+  inset: -48%;
+  background: radial-gradient(closest-side, var(--wash), transparent);
+  transition: filter .5s ease;
+}
+.work:hover::before, .work:focus-within::before { filter: brightness(1.5) saturate(1.2); }
+.work-stack { display: grid; gap: clamp(1.2rem, 3svh, 2.4rem); align-content: center; }
+
+/* Última sala: currículum i contacte, sota la rotulació */
+.room--sortida .room__text { align-self: flex-start; margin: 34svh 0 0; width: min(31rem, 78vw); font-size: .98rem; }
+.room--sortida .room__text--contact { width: min(30rem, 78vw); font-size: 1.05rem; }
+.room--sortida .room__text h2 + p, .room--sortida .room__text h2 + ul { margin-top: 0; }
+.room--sortida h2:not(:first-child) { margin-top: 1.5rem; }
+.room--sortida li + li { margin-top: .7rem; }
+.room--sortida .yr { display: inline-block; min-width: 3rem; opacity: .7; }
+.big-mail { display: block; margin-top: .6rem; font-size: clamp(1.4rem, 3.2vw, 3rem); font-weight: 200; text-decoration: none; letter-spacing: -.01em; overflow-wrap: anywhere; }
+.big-mail:hover { text-decoration: underline; text-underline-offset: .15em; }
+
+/* ───── Sense recorregut (moviment reduït): les sales s'apilen ───── */
+html:not(.is-walk) .stage { position: static; height: auto; overflow: visible; }
+html:not(.is-walk) .track { display: block; width: auto; }
+html:not(.is-walk) .room {
+  display: block; height: auto; min-height: 100svh; padding: 7rem var(--m) 9rem; box-shadow: none; overflow: visible;
+}
+html:not(.is-walk) .room::after { display: none; }
+html:not(.is-walk) .room__lettering { position: static; transform: none; font-size: clamp(3.5rem, 14vw, 10rem); margin-bottom: 2rem; }
+html:not(.is-walk) .room__text { width: min(36rem, 100%); margin: 0 0 2.5rem; }
+html:not(.is-walk) .room__works { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr)); height: auto; gap: 2.5rem 2rem; padding: 0; align-items: start; }
+html:not(.is-walk) .work { top: 0; }
+html:not(.is-walk) .work::before { display: none; }
+html:not(.is-walk) .work img { height: auto; width: 100%; max-height: 70svh; object-fit: contain; object-position: left top; }
+html:not(.is-walk) .work-stack { display: contents; }
+html:not(.is-walk) .hud { display: none; }
+html:not(.is-walk) .bar { position: absolute; }
+
+/* ───── Pantalles estretes ───── */
+@media (max-width: 720px) {
+  .menu summary { display: block; }
+  .menu[open] nav {
+    position: absolute; right: 0; top: 2rem; min-width: 12rem;
+    display: grid; gap: .1rem; padding: .9rem 1.1rem;
+    background: var(--ui-bg, #26282b); color: var(--ui-ink);
+  }
+  .menu:not([open]) nav { display: none; }
+  .hud { grid-template-columns: 1fr auto; }
+  .hud__line { grid-column: 1 / -1; grid-row: 1; }
+  .hud__hint { display: none; }
+  .room__text { margin-bottom: 20svh; }
+}
+@media (min-width: 721px) {
+  .menu nav { display: flex !important; }
+}

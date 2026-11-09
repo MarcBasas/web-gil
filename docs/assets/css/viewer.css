@@ -1,0 +1,56 @@
+/* Visor d'imatge ampliada (compartit per Taller i Sala). Es pot tematitzar amb --viewer-bg / --viewer-ink. */
+.viewer {
+  position: fixed; inset: 0;
+  width: 100%; height: 100%;
+  max-width: none; max-height: none;
+  margin: 0; padding: 0; border: 0;
+  background: var(--viewer-bg, #101010);
+  color: var(--viewer-ink, #f3f1ec);
+  font-family: inherit;
+  overscroll-behavior: contain;
+}
+.viewer[open] { display: grid; grid-template-rows: minmax(0, 1fr) auto; }
+.viewer::backdrop { background: var(--viewer-bg, #101010); }
+
+.viewer__stage {
+  min-height: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(1rem, 4vw, 3rem) clamp(1rem, 4vw, 3rem) 0;
+  touch-action: pan-y pinch-zoom;
+}
+/* La imatge ocupa tot l'espai disponible (viewer.js limita l'ampliació a 1,8× la mida original) */
+.viewer__img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  transition: opacity .28s ease;
+}
+.viewer__img.is-swapping { opacity: 0; }
+
+.viewer__bar {
+  display: flex; flex-wrap: wrap; gap: 1rem 2rem;
+  align-items: flex-end; justify-content: space-between;
+  padding: 1.1rem clamp(1rem, 4vw, 3rem) 1.3rem;
+  font-size: .95rem; line-height: 1.4; font-weight: 300;
+}
+.viewer__cap { max-width: 58ch; }
+.viewer__title { font-weight: 500; }
+.viewer__meta { opacity: .72; }
+.viewer__text { margin-top: .35rem; opacity: .85; }
+
+.viewer__nav { display: flex; gap: 1.6rem; font-weight: 400; }
+.viewer__nav button { padding: .35rem 0; border-bottom: 1px solid transparent; }
+.viewer__nav button:hover { border-bottom-color: currentColor; }
+.viewer__nav button[disabled] { opacity: .3; pointer-events: none; }
+
+/* Transició de la foto cap al visor (només si el navegador suporta View Transitions) */
+::view-transition-group(viewer-img) {
+  animation-duration: .5s;
+  animation-timing-function: cubic-bezier(.2, .75, .15, 1);
+}
+::view-transition-old(viewer-img),
+::view-transition-new(viewer-img) { height: 100%; object-fit: contain; }
+
+@media (prefers-reduced-motion: reduce) {
+  .viewer__img { transition: none; }
+  ::view-transition-group(*) { animation-duration: .001s !important; }
+}

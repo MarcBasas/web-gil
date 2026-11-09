@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gil Farrés · Tres propostes de web</title>
+  <meta name="description" content="Tres propostes de disseny per al portafoli web de Gil Farrés.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/jost-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/base.css">
+  <style>
+    :root { --ink: #171717; --mute: #6d6d6d; --line: #d9d9d9; --m: clamp(16px, 3.2vw, 48px); }
+    html { background: #fff; color: var(--ink); }
+    body { font-weight: 300; line-height: 1.5; padding: var(--m); min-height: 100svh; display: flex; flex-direction: column; }
+
+    header { display: flex; justify-content: space-between; align-items: baseline; font-size: .98rem; font-weight: 400; }
+    h1 {
+      margin: clamp(1.8rem, 5vh, 4rem) 0 clamp(1.8rem, 5vh, 3.5rem);
+      font-size: clamp(3rem, min(8.6vw, 17vh), 11rem); font-weight: 100; line-height: .9; letter-spacing: -.015em;
+    }
+    h1 b { font-weight: 390; }
+
+    .tria { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 32px); }
+    .opcio { display: block; text-decoration: none; }
+    .opcio__img { aspect-ratio: 16 / 10; overflow: hidden; background: #eee; }
+    .opcio__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.2, .7, .2, 1); }
+    .opcio:hover .opcio__img img, .opcio:focus-visible .opcio__img img { transform: scale(1.04); }
+    .opcio h2 { margin-top: 1rem; font-size: clamp(1.5rem, 2.6vw, 2.4rem); font-weight: 200; line-height: 1; }
+    .opcio p { margin-top: .6rem; max-width: 36ch; font-size: .98rem; color: var(--mute); text-wrap: pretty; }
+    .opcio:hover h2 { text-decoration: underline; text-decoration-thickness: .04em; text-underline-offset: .2em; }
+
+    footer { margin-top: auto; padding-top: clamp(1.4rem, 4vh, 3rem); font-size: .88rem; color: var(--mute); }
+
+    @media (max-width: 860px) { .tria { grid-template-columns: 1fr; gap: 2.4rem; } }
+  </style>
+</head>
+<body>
+  <header>
+    <span>Gil Farrés</span>
+    <span>Portafoli 2026</span>
+  </header>
+
+  <main>
+    <h1>Tres<br><b>propostes</b></h1>
+
+    <div class="tria">
+      <a class="opcio" href="paper/">
+        <div class="opcio__img"><img src="assets/thumbs/paper.jpg" width="1440" height="900" alt="Vista de la proposta Paper: fons blanc, títol del projecte a l’esquerra i una gran fotografia d’una instal·lació inflable." loading="eager"></div>
+        <h2>Paper</h2>
+        <p>El portafoli en PDF fet pàgina web. Blanc, tipografia fina i fotos grans: cada imatge omple el buit a mesura que baixes.</p>
+      </a>
+      <a class="opcio" href="taller/">
+        <div class="opcio__img"><img src="assets/thumbs/taller.jpg" width="1440" height="900" alt="Vista de la proposta Taller: un taulell de color blau cobalt ple de fotografies i dibuixos escampats, amb el nom de Gil al fons." loading="eager"></div>
+        <h2>Taller</h2>
+        <p>Una taula de treball infinita, en el blau de les caixes de Rec.0. Arrossega en qualsevol direcció i descobreix les obres.</p>
+      </a>
+      <a class="opcio" href="sala/">
+        <div class="opcio__img"><img src="assets/thumbs/sala.jpg" width="1440" height="900" alt="Vista de la proposta Sala: dues sales de color diferent amb rotulació gran a la paret i fotografies penjades." loading="eager"></div>
+        <h2>Sala</h2>
+        <p>Un recorregut horitzontal per una exposició. Cada sala té el color del seu projecte i la lletra gran a la paret.</p>
+      </a>
+    </div>
+  </main>
+
+  <footer>Esborrany per presentar. Les imatges i els textos són els del portafoli i el CV de Gil.</footer>
+</body>
+</html>

@@ -1,0 +1,62 @@
+/*
+  Base comuna a les tres propostes: tipografia autoallotjada, reinici mínim i qualitat bàsica
+  (focus visible, moviment reduït). Cada proposta defineix el seu propi disseny a la seva carpeta.
+
+  Tipografia: Jost (SIL Open Font License), una geomètrica propera a l'ITC Avant Garde Gothic del portafoli.
+  Si Gil té Adobe Creative Cloud es pot carregar la font original amb Adobe Fonts (cal revisar la llicència web).
+*/
+@font-face {
+  font-family: 'Jost';
+  src: url('../fonts/jost-latin-wght-normal.woff2') format('woff2-variations'),
+       url('../fonts/jost-latin-wght-normal.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  hanging-punctuation: first last;
+}
+
+body {
+  margin: 0;
+  font-family: 'Jost', 'Avenir Next', 'Century Gothic', 'Segoe UI', system-ui, sans-serif;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, picture, video, canvas, svg { display: block; max-width: 100%; }
+img { height: auto; }
+
+h1, h2, h3, p, figure, ul, ol, dl, dd { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; text-decoration-thickness: .06em; text-underline-offset: .22em; }
+
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: fixed; left: 1rem; top: -4rem; z-index: 1000;
+  padding: .6rem 1rem; background: #fff; color: #111;
+  transition: top .2s;
+}
+.skip-link:focus { top: 1rem; }

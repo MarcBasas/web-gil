@@ -1,0 +1,9 @@
+# Material de origen. El CV lleva teléfono y fecha de nacimiento: no publicar sin permiso de Gil.
+cv.pdf
+PORTFOLI GIL 2026.pdf
+
+# Herramientas locales
+.claude/
+graft/
+node_modules/
+.ignore
