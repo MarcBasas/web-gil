@@ -1,12 +1,17 @@
 /*
   Proposta 2 · Taller — taulell infinit arrossegable.
 
-  Com funciona:
-  · Cada capa és una "rajola" de mida fixa (TW × TH) amb totes les peces col·locades sense solapar-se.
-    La rajola es repeteix en 2×2 i la càmera es calcula en mòdul, de manera que el taulell no té vora.
-  · Dues capes: el grafisme FARS al fons (es mou més lent) i les fotos al davant (profunditat).
+  Dues vistes, dues regles:
+  · TAULELL: només les fotos marcades "board": true a content/projects.json (com a màxim GIL.boardLimit).
+  · LLISTA: tots els projectes i totes les fotos, sense límit.
+
+  Com funciona el taulell:
+  · Cada capa és una "rajola" amb totes les peces col·locades sense solapar-se (mida proporcional a
+    quantes peces hi ha). La rajola es repeteix en 2×2 i la càmera es calcula en mòdul: el taulell no té vora.
+  · Dues capes: els dibuixos del fons (es mouen més lents) i les fotos al davant (profunditat).
   · Arrossegar (ratolí o dit), roda/trackpad i fletxes del teclat; inèrcia en deixar anar.
   · Les peces són botons reals (només a la còpia principal): accessible amb teclat.
+  · Els dibuixos del fons són fixos (assets/stickers/) i no depenen de les fotos dels projectes.
 */
 (() => {
   const G = window.GIL;
@@ -19,19 +24,44 @@
   const mod = (n, m) => ((n % m) + m) % m;
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-  /* ───────── Dades ───────── */
-  const peces = G.projectes.flatMap((p) => p.imatges.map((im, i) => ({ p, im, i })));
-  const metaDe = (p) => [p.subtitol, p.lloc, p.any].filter(Boolean).join(', ');
-  const itemsDe = (p) => p.imatges.map((im) => ({ src: im.src, alt: im.alt, w: im.w, h: im.h, titol: p.titol, meta: metaDe(p), text: p.text }));
-  const obre = (p, i, origin) => GilViewer.open({ items: itemsDe(p), index: i, origin });
+  // Si el contingut no es pot carregar (xarxa, fitxer JSON trencat) es diu clarament en lloc de deixar la pàgina en blau.
+  const errorCarrega = (e) => {
+    console.error('[taller]', e);
+    document.body.dataset.view = 'error';
+    const p = document.createElement('p');
+    p.className = 'load-error';
+    p.setAttribute('role', 'alert');
+    p.textContent = G.t ? G.t('load_error') : 'No s’ha pogut carregar el contingut.';
+    document.body.append(p);
+  };
+  G.ready.then(iniciar).catch(errorCarrega);
 
-  // grafisme per a la capa del fons (negre sobre blanc). Per defecte es fon amb el blau amb multiply;
-  // els marcats amb 'taronja' es tenyeixen i van a la capa d'accent (sense multiply).
+  function iniciar() {
+  /* ───────── Dades ───────── */
+  const peces = G.board();                                   // fotos del taulell: { p, im, i } (i = lloc a la galeria completa)
+  const enTaulell = new Set(peces.map((x) => x.im));
+  const metaDe = (p) => [p.subtitol, p.lloc, p.any].filter(Boolean).join(', ');
+  // Des del taulell el visor recorre només les fotos del taulell d'aquell projecte; des de la llista, totes.
+  const obre = (p, i, origin, desdeTaulell) => {
+    const llista = p.imatges.map((im, k) => ({ im, k })).filter(({ im }) => !desdeTaulell || enTaulell.has(im));
+    const items = llista.map(({ im }) => ({ src: im.src, alt: im.alt, w: im.w, h: im.h, titol: p.titol, meta: metaDe(p), text: p.text }));
+    GilViewer.open({ items, index: Math.max(0, llista.findIndex((x) => x.k === i)), origin });
+  };
+
+  // Categories amb alguna foto al taulell (els filtres només ofereixen aquestes) i si "fan portada":
+  // la vista inicial prioritza obres d'aquestes categories (les altres, com els productes, hi fan de comparsa).
+  const catsTaulell = () => G.categories.filter((c) => peces.some((x) => x.p.tipus === c.id));
+  const faPortada = (id) => { const c = G.categories.find((x) => x.id === id); return !c || c.cover; };
+
+  // Dibuixos del fons (negre sobre blanc). Per defecte es fonen amb el blau amb multiply;
+  // els marcats 'taronja' es tenyeixen i van a la capa d'accent (sense multiply). Fitxers propis, sempre al lloc.
+  // [fitxer, amplada, alçada, costat que fixa la mida ('w'|'h'), mida, tint]
+  const stk = (file) => new URL(`../assets/stickers/${file}`, document.baseURI).href;
   const fons = [
-    ['fars-logo.png', 'h', 720], ['fars-estrella.jpg', 'h', 640, 'taronja'], ['fars-figures-negres.png', 'w', 820, 'taronja'],
-    ['fars-arma-paraigua.jpg', 'w', 920, 'taronja'], ['fars-cara.jpg', 'w', 520], ['fars-figures-dibuix.png', 'w', 700],
-    ['fars-estrella-3d.jpg', 'h', 560],
-  ].map(([file, side, size, tint]) => ({ im: G.per('fars').imatges.find((x) => x.file === file), side, size, taronja: tint === 'taronja' }));
+    ['fars-logo.png', 1658, 1906, 'h', 720], ['fars-estrella.jpg', 399, 616, 'h', 640, 'taronja'],
+    ['fars-figures-negres.png', 1170, 417, 'w', 820, 'taronja'], ['fars-arma-paraigua.jpg', 1090, 390, 'w', 920, 'taronja'],
+    ['fars-cara.jpg', 499, 362, 'w', 520], ['fars-figures-dibuix.png', 749, 453, 'w', 700], ['fars-estrella-3d.jpg', 399, 616, 'h', 560],
+  ].map(([file, w, h, side, size, tint]) => ({ im: { src: stk(file), w, h }, side, size, taronja: tint === 'taronja' }));
 
   /* ───────── Utilitats de col·locació ───────── */
   function mulberry32(a) {
@@ -81,10 +111,13 @@
 
     /* capa principal */
     const rand = mulberry32(11);
-    const TW = 3200 * S, TH = 2200 * S;
+    // La rajola està calibrada per a 42 peces (3200 × 2200). Amb més o menys peces creix o s'encongeix
+    // perquè la densitat es mantingui (entre 0,7× i 1,6×). Amb exactament 42, queda igual que sempre.
+    const f = Math.min(1.6, Math.max(0.7, Math.sqrt(peces.length / 42)));
+    const TW = 3200 * S * f, TH = 2200 * S * f;
     const rects = peces.map(({ p, im, i }) => {
       const vertical = im.h > im.w;
-      let L = p.id === 'fars' ? (im.file === 'fars-logo.png' ? 330 : im.w / im.h > 2 ? 430 : 255) : vertical ? 540 : 470;
+      let L = im.boardSize;                       // costat llarg que es dibuixa (px a 1440 d'amplada), de les dades de la foto
       L *= S * (0.92 + rand() * 0.2);
       const w = vertical ? L * (im.w / im.h) : L;
       return { p, im, i, w, h: w * (im.h / im.w) };
@@ -224,7 +257,7 @@
     const peca = down.peca; down = null;
     if (clic) {
       const p = G.per(peca.dataset.pid);
-      obre(p, +peca.dataset.i, peca.querySelector('img'));
+      obre(p, +peca.dataset.i, peca.querySelector('img'), true);
     } else desperta();
   };
   world.addEventListener('pointerup', deixa);
@@ -262,16 +295,16 @@
   layerMain.addEventListener('click', (e) => {
     if (e.detail !== 0) return;
     const b = e.target.closest('.piece');
-    if (b) obre(G.per(b.dataset.pid), +b.dataset.i, b.querySelector('img'));
+    if (b) obre(G.per(b.dataset.pid), +b.dataset.i, b.querySelector('img'), true);
   });
 
   /* ───────── Filtres ───────── */
-  // [clau interna (= data-tipus de les peces), clau del text a i18n.js]
-  const filtres = [['tot', 'f_tot'], ['instal·lacions', 'f_inst'], ['escenografia', 'f_esc'], ['fars', 'f_fars']];
+  // Tot + les categories que tenen alguna foto al taulell (nom en l'idioma actual, de content/site.json)
   let filtreActual = 'tot';
   const fbox = document.getElementById('filters');
   const pintaFiltres = () => {
-    fbox.innerHTML = filtres.map(([k, tx]) => `<button type="button" data-f="${k}" aria-pressed="${k === filtreActual}">${esc(G.t(tx))}</button>`).join('');
+    const botons = [['tot', G.t('f_tot')], ...catsTaulell().map((c) => [c.id, c.label])];
+    fbox.innerHTML = botons.map(([k, txt]) => `<button type="button" data-f="${k}" aria-pressed="${k === filtreActual}">${esc(txt)}</button>`).join('');
   };
   pintaFiltres();
 
@@ -317,7 +350,7 @@
   pintaLlista();
   llista.addEventListener('click', (e) => {
     const b = e.target.closest('button'); if (!b) return;
-    obre(G.per(b.dataset.pid), +b.dataset.i, b.querySelector('img'));
+    obre(G.per(b.dataset.pid), +b.dataset.i, b.querySelector('img'), false);
   });
 
   /* La llista té el seu propi scroll (no el de la pàgina): així la pàgina no canvia mai d'amplada en passar
@@ -401,8 +434,8 @@
   function calculaInici() {
     const l = layers[0], vw = innerWidth, vh = innerHeight;
     const caixa = { w: vw * 0.9, h: vh * 0.5 };           // zona on viu el nom
-    const dades = primary.map((x) => ({ x: parseFloat(x.el.style.left), y: parseFloat(x.el.style.top), w: parseFloat(x.el.style.width), h: x.el.offsetHeight, fars: x.tipus === 'fars' }));
-    const minObres = vw < 720 ? 2 : 3;                     // obres d'instal·lació/escenografia ben visibles a l'obrir
+    const dades = primary.map((x) => ({ x: parseFloat(x.el.style.left), y: parseFloat(x.el.style.top), w: parseFloat(x.el.style.width), h: x.el.offsetHeight, comparsa: !faPortada(x.tipus) }));
+    const minObres = vw < 720 ? 2 : 3;                     // obres «de portada» (instal·lacions, escenografia) ben visibles a l'obrir
     let millor = null, score = Infinity;
     for (let cx = 0; cx < l.TW; cx += 60) for (let cy = 0; cy < l.TH; cy += 60) {
       let cobert = 0, visibles = 0, obres = 0;
@@ -412,7 +445,7 @@
           visibles++;
           // «ben visible»: com a mínim el 75 % de la peça dins la pantalla
           const dins = (Math.min(x0 + d.w, vw) - Math.max(x0, 0)) * (Math.min(y0 + d.h, vh) - Math.max(y0, 0));
-          if (!d.fars && dins >= 0.75 * d.w * d.h) obres++;
+          if (!d.comparsa && dins >= 0.75 * d.w * d.h) obres++;
         }
         const ix = Math.max(0, Math.min(x0 + d.w, (vw + caixa.w) / 2) - Math.max(x0, (vw - caixa.w) / 2));
         const iy = Math.max(0, Math.min(y0 + d.h, (vh + caixa.h) / 2) - Math.max(y0, (vh - caixa.h) / 2));
@@ -463,4 +496,5 @@
       } else aplica();
     }, 200);
   });
+  }   // fi d'iniciar()
 })();

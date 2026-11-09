@@ -30,6 +30,10 @@ body {
   overscroll-behavior: none;
 }
 
+/* Missatge si el contingut no es pot carregar (content/*.json) */
+.load-error { position: fixed; inset: 0; z-index: 10; display: grid; place-content: center; padding: 2rem; text-align: center; font-size: 1.15rem; max-width: 36rem; margin: auto; }
+body[data-view="error"] .ui, body[data-view="error"] .world, body[data-view="error"] .wordmark { display: none; }
+
 /* ───── El nom, fix al fons ───── */
 /* Capes (de baix a dalt): dibuixos del fons (z 1) · el nom (z 2, abans al DOM) · fotos (z 2, després al DOM) */
 .wordmark {

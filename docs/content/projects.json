@@ -1,0 +1,628 @@
+{
+  "projects": [
+    {
+      "id": "balloon",
+      "category": "installations",
+      "year": "2026",
+      "place": "Igualada, Barcelona",
+      "title": {
+        "ca": "Instal·lació European Balloon Festival",
+        "es": "Instalación European Balloon Festival",
+        "en": "European Balloon Festival installation"
+      },
+      "short": {
+        "ca": "European Balloon Festival",
+        "es": "European Balloon Festival",
+        "en": "European Balloon Festival"
+      },
+      "text": {
+        "ca": "Instal·lació de la peça inflable «Omplint el buit» al festival European Balloon Festival, en col·laboració amb Iglusdevent.",
+        "es": "Instalación de la pieza hinchable «Omplint el buit» en el festival European Balloon Festival, en colaboración con Iglusdevent.",
+        "en": "Installation of the inflatable piece “Omplint el buit” at the European Balloon Festival, in collaboration with Iglusdevent."
+      },
+      "photos": [
+        {
+          "file": "balloon-1.jpg",
+          "w": 1090,
+          "h": 726,
+          "board": true,
+          "boardSize": 470,
+          "alt": {
+            "ca": "Peça inflable translúcida i blanca a l’interior d’una gran estructura inflable de tons verdosos.",
+            "es": "Pieza hinchable translúcida y blanca en el interior de una gran estructura hinchable de tonos verdosos.",
+            "en": "Translucent white inflatable piece inside a large inflatable structure in greenish tones."
+          }
+        },
+        {
+          "file": "balloon-2.jpg",
+          "w": 1090,
+          "h": 726,
+          "board": true,
+          "boardSize": 470,
+          "alt": {
+            "ca": "Cúpula inflable blanca amb la base taronja en una nau amb finestrals; al davant, dos pedestals de fusta amb un llibre obert.",
+            "es": "Cúpula hinchable blanca con la base naranja en una nave con ventanales; delante, dos pedestales de madera con un libro abierto.",
+            "en": "White inflatable dome with an orange base in a hall with large windows; in front, two wooden plinths with an open book."
+          }
+        },
+        {
+          "file": "balloon-3.jpg",
+          "w": 1091,
+          "h": 727,
+          "board": true,
+          "boardSize": 470,
+          "alt": {
+            "ca": "Dues persones observen els pedestals de fusta davant la cúpula inflable.",
+            "es": "Dos personas observan los pedestales de madera frente a la cúpula hinchable.",
+            "en": "Two people look at the wooden plinths in front of the inflatable dome."
+          }
+        },
+        {
+          "file": "balloon-4.jpg",
+          "w": 1091,
+          "h": 727,
+          "board": true,
+          "boardSize": 470,
+          "alt": {
+            "ca": "Els tubs inflables blancs i translúcids vistos de prop, dins l’estructura.",
+            "es": "Los tubos hinchables blancos y translúcidos vistos de cerca, dentro de la estructura.",
+            "en": "The white translucent inflatable tubes seen up close, inside the structure."
+          }
+        }
+      ]
+    },
+    {
+      "id": "buit",
+      "category": "installations",
+      "year": "2025",
+      "place": "Igualada, Barcelona",
+      "title": {
+        "ca": "Omplint el buit",
+        "es": "Omplint el buit",
+        "en": "Omplint el buit"
+      },
+      "short": {
+        "ca": "Omplint el buit",
+        "es": "Omplint el buit",
+        "en": "Omplint el buit"
+      },
+      "text": {
+        "ca": "Projecte sobre la vida passada al barri del Rec d’Igualada. Sèrie d’instal·lacions inflables.",
+        "es": "Proyecto sobre la vida pasada en el barrio del Rec de Igualada. Serie de instalaciones hinchables.",
+        "en": "A project about past life in Igualada’s Rec neighbourhood. A series of inflatable installations."
+      },
+      "photos": [
+        {
+          "file": "buit-1.jpg",
+          "w": 1090,
+          "h": 727,
+          "board": true,
+          "boardSize": 470,
+          "alt": {
+            "ca": "Peça inflable translúcida de tubs entrellaçats dins d’una antiga sala amb bigues de fusta.",
+            "es": "Pieza hinchable translúcida de tubos entrelazados dentro de una antigua sala con vigas de madera.",
+            "en": "Translucent inflatable piece of interlaced tubes inside an old room with wooden beams."
+          }
+        },
+        {
+          "file": "buit-2.jpg",
+          "w": 1090,
+          "h": 727,
+          "board": true,
+          "boardSize": 470,
+          "alt": {
+            "ca": "Un tub inflable gris segueix el curs del Rec entre murs de pedra i vegetació.",
+            "es": "Un tubo hinchable gris sigue el curso del Rec entre muros de piedra y vegetación.",
+            "en": "A grey inflatable tube follows the course of the Rec between stone walls and vegetation."
+          }
+        },
+        {
+          "file": "buit-3.jpg",
+          "w": 1090,
+          "h": 728,
+          "board": true,
+          "boardSize": 470,
+          "alt": {
+            "ca": "Un tub inflable blanc amb un nus s’estén sobre l’herba, amb el barri al fons.",
+            "es": "Un tubo hinchable blanco con un nudo se extiende sobre la hierba, con el barrio al fondo.",
+            "en": "A white inflatable tube with a knot stretches across the grass, with the neighbourhood behind."
+          }
+        },
+        {
+          "file": "buit-4.jpg",
+          "w": 1090,
+          "h": 727,
+          "board": true,
+          "boardSize": 470,
+          "alt": {
+            "ca": "Un nus inflable il·luminat de nit davant d’un mur de pedra.",
+            "es": "Un nudo hinchable iluminado de noche frente a un muro de piedra.",
+            "en": "A lit inflatable knot at night in front of a stone wall."
+          }
+        }
+      ]
+    },
+    {
+      "id": "rec0",
+      "category": "setdesign",
+      "year": "2026",
+      "place": "Igualada, Barcelona",
+      "title": {
+        "ca": "Festival Rec.0",
+        "es": "Festival Rec.0",
+        "en": "Rec.0 Festival"
+      },
+      "short": {
+        "ca": "Festival Rec.0",
+        "es": "Festival Rec.0",
+        "en": "Rec.0 Festival"
+      },
+      "text": {
+        "ca": "Disseny i producció d’espais per al festival Rec.0.",
+        "es": "Diseño y producción de espacios para el festival Rec.0.",
+        "en": "Design and production of spaces for the Rec.0 festival."
+      },
+      "photos": [
+        {
+          "file": "rec0-1.jpg",
+          "w": 991,
+          "h": 1329,
+          "board": true,
+          "boardSize": 540,
+          "alt": {
+            "ca": "Escenografia de caixes de plàstic blaves apilades, amb cadires de fusta, una columna taronja i una de rosa.",
+            "es": "Escenografía de cajas de plástico azules apiladas, con sillas de madera, una columna naranja y una rosa.",
+            "en": "Set made of stacked blue plastic crates, with wooden chairs, an orange column and a pink one."
+          }
+        },
+        {
+          "file": "rec0-2.jpg",
+          "w": 1090,
+          "h": 722,
+          "board": true,
+          "boardSize": 470,
+          "alt": {
+            "ca": "Públic assegut davant d’un concert, amb les caixes blaves i les columnes de colors al fons.",
+            "es": "Público sentado ante un concierto, con las cajas azules y las columnas de colores al fondo.",
+            "en": "Audience seated at a concert, with the blue crates and coloured columns behind."
+          }
+        },
+        {
+          "file": "rec0-3.jpg",
+          "w": 1090,
+          "h": 703,
+          "board": true,
+          "boardSize": 470,
+          "alt": {
+            "ca": "Una petita casa de fusta coberta de caixes blaves, a mode de parada d’autobús, amb un autobús al fons.",
+            "es": "Una pequeña casa de madera cubierta de cajas azules, a modo de parada de autobús, con un autobús al fondo.",
+            "en": "A small wooden house covered in blue crates, serving as a bus stop, with a bus behind."
+          }
+        }
+      ]
+    },
+    {
+      "id": "encesa",
+      "category": "setdesign",
+      "year": "2025",
+      "place": "Igualada, Barcelona",
+      "title": {
+        "ca": "Encesa de llums de Nadal d’Igualada",
+        "es": "Encendido de las luces de Navidad de Igualada",
+        "en": "Igualada Christmas lights switch-on"
+      },
+      "short": {
+        "ca": "Encesa de llums de Nadal",
+        "es": "Encendido de luces de Navidad",
+        "en": "Christmas lights switch-on"
+      },
+      "text": {
+        "ca": "Disseny i producció d’escenografia per a l’encesa de llums de Nadal d’Igualada. Encarregat per l’Ajuntament d’Igualada.",
+        "es": "Diseño y producción de escenografía para el encendido de las luces de Navidad de Igualada. Encargo del Ayuntamiento de Igualada.",
+        "en": "Set design and production for the Igualada Christmas lights switch-on. Commissioned by the Igualada City Council."
+      },
+      "photos": [
+        {
+          "file": "encesa-1.jpg",
+          "w": 1090,
+          "h": 767,
+          "board": true,
+          "boardSize": 470,
+          "alt": {
+            "ca": "Una gran peça blanca amb forma de roca flota sobre la plaça, amb una figura a sota i la gent al voltant.",
+            "es": "Una gran pieza blanca con forma de roca flota sobre la plaza, con una figura debajo y la gente alrededor.",
+            "en": "A large white rock-shaped piece floats above the square, with a figure beneath it and people around."
+          }
+        },
+        {
+          "file": "encesa-2.jpg",
+          "w": 1091,
+          "h": 672,
+          "board": true,
+          "boardSize": 470,
+          "alt": {
+            "ca": "La peça il·luminada penja sobre l’avinguda d’arbres amb llums, entre una multitud.",
+            "es": "La pieza iluminada cuelga sobre la avenida de árboles con luces, entre una multitud.",
+            "en": "The lit piece hangs over the tree-lined avenue strung with lights, above a crowd."
+          }
+        },
+        {
+          "file": "encesa-3.jpg",
+          "w": 1090,
+          "h": 766,
+          "board": true,
+          "boardSize": 470,
+          "alt": {
+            "ca": "La peça brilla sobre la gent, que aixeca els mòbils per fotografiar-la.",
+            "es": "La pieza brilla sobre la gente, que levanta los móviles para fotografiarla.",
+            "en": "The piece glows above the crowd, who hold up their phones to photograph it."
+          }
+        },
+        {
+          "file": "encesa-4.jpg",
+          "w": 1090,
+          "h": 672,
+          "board": true,
+          "boardSize": 470,
+          "alt": {
+            "ca": "La peça flotant sobre la plaça de nit, amb globus de colors entre el públic.",
+            "es": "La pieza flotando sobre la plaza de noche, con globos de colores entre el público.",
+            "en": "The piece floating above the square at night, with coloured balloons among the audience."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fars",
+      "category": "fars",
+      "year": "2024",
+      "place": "",
+      "title": {
+        "ca": "FARS",
+        "es": "FARS",
+        "en": "FARS"
+      },
+      "short": {
+        "ca": "FARS",
+        "es": "FARS",
+        "en": "FARS"
+      },
+      "subtitle": {
+        "ca": "Concepte de marca",
+        "es": "Concepto de marca",
+        "en": "Brand concept"
+      },
+      "text": {
+        "ca": "Marca pròpia de complements, entesa com un espai d’investigació, experimentació i creació personal on explorar materials, tècniques i conceptes al marge dels encàrrecs professionals.",
+        "es": "Marca propia de complementos, entendida como un espacio de investigación, experimentación y creación personal donde explorar materiales, técnicas y conceptos al margen de los encargos profesionales.",
+        "en": "A personal accessories label, understood as a space for research, experimentation and personal creation, where materials, techniques and concepts can be explored outside professional commissions."
+      },
+      "photos": [
+        {
+          "file": "fars-logo.png",
+          "w": 1658,
+          "h": 1906,
+          "board": true,
+          "boardSize": 330,
+          "alt": {
+            "ca": "Logotip FARS: les lletres F, A, R i S voregen una figura negra amb cresta d’espigues.",
+            "es": "Logotipo FARS: las letras F, A, R y S bordean una figura negra con cresta de espigas.",
+            "en": "FARS logo: the letters F, A, R and S frame a black figure with a spiked crest."
+          }
+        },
+        {
+          "file": "fars-estrella.jpg",
+          "w": 399,
+          "h": 616,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Estrella de vuit puntes amb contorn negre, amb unes lletres al centre.",
+            "es": "Estrella de ocho puntas con contorno negro, con unas letras en el centro.",
+            "en": "Eight-pointed star with a black outline and lettering in the centre."
+          }
+        },
+        {
+          "file": "fars-estrella-3d.jpg",
+          "w": 399,
+          "h": 616,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "La mateixa estrella en relleu, amb aspecte brillant i inflat.",
+            "es": "La misma estrella en relieve, con aspecto brillante e hinchado.",
+            "en": "The same star in relief, with a glossy, inflated look."
+          }
+        },
+        {
+          "file": "fars-arma-paraigua.jpg",
+          "w": 1090,
+          "h": 390,
+          "board": true,
+          "boardSize": 430,
+          "alt": {
+            "ca": "Dibuix a línia d’un fusell i un paraigua amb estrelles que esclaten.",
+            "es": "Dibujo a línea de un fusil y un paraguas con estrellas que estallan.",
+            "en": "Line drawing of a rifle and an umbrella with bursting stars."
+          }
+        },
+        {
+          "file": "fars-bulldog.jpg",
+          "w": 545,
+          "h": 342,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Un bulldog vermell amb quatre cercles que porten les lletres F, A, R i S.",
+            "es": "Un bulldog rojo con cuatro círculos que llevan las letras F, A, R y S.",
+            "en": "A red bulldog with four circles bearing the letters F, A, R and S."
+          }
+        },
+        {
+          "file": "fars-cara.jpg",
+          "w": 499,
+          "h": 362,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Dibuix a tinta d’un rostre esquemàtic dins d’un requadre.",
+            "es": "Dibujo a tinta de un rostro esquemático dentro de un recuadro.",
+            "en": "Ink drawing of a schematic face inside a frame."
+          }
+        },
+        {
+          "file": "fars-figures-negres.png",
+          "w": 1170,
+          "h": 417,
+          "board": true,
+          "boardSize": 430,
+          "alt": {
+            "ca": "Tres figures negres en moviment, en tinta.",
+            "es": "Tres figuras negras en movimiento, en tinta.",
+            "en": "Three black figures in motion, in ink."
+          }
+        },
+        {
+          "file": "fars-objectes.jpg",
+          "w": 928,
+          "h": 369,
+          "board": true,
+          "boardSize": 430,
+          "alt": {
+            "ca": "Tres peces de color: una pastilla blava, una estrella vermella i una figureta taronja.",
+            "es": "Tres piezas de color: una pastilla azul, una estrella roja y una figurita naranja.",
+            "en": "Three coloured pieces: a blue pill, a red star and a small orange figure."
+          }
+        },
+        {
+          "file": "fars-samarreta-bulldog.jpg",
+          "w": 522,
+          "h": 665,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Samarreta blanca amb el logotip FARS i un bulldog.",
+            "es": "Camiseta blanca con el logotipo FARS y un bulldog.",
+            "en": "White T-shirt with the FARS logo and a bulldog."
+          }
+        },
+        {
+          "file": "fars-samarreta-figures.jpg",
+          "w": 510,
+          "h": 665,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Samarreta blanca amb tres figures amb cresta de colors.",
+            "es": "Camiseta blanca con tres figuras con cresta de colores.",
+            "en": "White T-shirt with three crested figures in colour."
+          }
+        },
+        {
+          "file": "fars-samarreta-lletres.jpg",
+          "w": 522,
+          "h": 630,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Samarreta blanca amb tres figures i el logotip FARS en lletres cromades.",
+            "es": "Camiseta blanca con tres figuras y el logotipo FARS en letras cromadas.",
+            "en": "White T-shirt with three figures and the FARS logo in chrome lettering."
+          }
+        },
+        {
+          "file": "fars-samarreta-mascara.jpg",
+          "w": 511,
+          "h": 630,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Samarreta blanca amb una figura negra encaputxada amb orelles i el logotip FARS.",
+            "es": "Camiseta blanca con una figura negra encapuchada con orejas y el logotipo FARS.",
+            "en": "White T-shirt with a hooded black figure with ears and the FARS logo."
+          }
+        },
+        {
+          "file": "fars-samarreta-rosa-1.jpg",
+          "w": 585,
+          "h": 531,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Samarreta rosa amb un rostre en relleu i el nom FARS escrit a mà.",
+            "es": "Camiseta rosa con un rostro en relieve y el nombre FARS escrito a mano.",
+            "en": "Pink T-shirt with a face in relief and the name FARS handwritten."
+          }
+        },
+        {
+          "file": "fars-samarreta-rosa-2.jpg",
+          "w": 596,
+          "h": 520,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Samarreta rosa amb un rostre estampat en negre i el nom FARS escrit a mà.",
+            "es": "Camiseta rosa con un rostro estampado en negro y el nombre FARS escrito a mano.",
+            "en": "Pink T-shirt with a face printed in black and the name FARS handwritten."
+          }
+        },
+        {
+          "file": "fars-samarreta-catifa-blanca.jpg",
+          "w": 506,
+          "h": 531,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Samarreta blanca amb tres figures de colors, sobre una catifa estampada.",
+            "es": "Camiseta blanca con tres figuras de colores, sobre una alfombra estampada.",
+            "en": "White T-shirt with three coloured figures, laid on a patterned rug."
+          }
+        },
+        {
+          "file": "fars-samarreta-catifa-blava.jpg",
+          "w": 495,
+          "h": 520,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Samarreta blau marí amb tres figures de colors, sobre una catifa estampada.",
+            "es": "Camiseta azul marino con tres figuras de colores, sobre una alfombra estampada.",
+            "en": "Navy T-shirt with three coloured figures, laid on a patterned rug."
+          }
+        },
+        {
+          "file": "fars-samarreta-vermella.jpg",
+          "w": 545,
+          "h": 507,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Samarreta vermella amb un cercle d’estrelles al voltant del logotip FARS.",
+            "es": "Camiseta roja con un círculo de estrellas alrededor del logotipo FARS.",
+            "en": "Red T-shirt with a circle of stars around the FARS logo."
+          }
+        },
+        {
+          "file": "fars-samarreta-taronja.jpg",
+          "w": 545,
+          "h": 530,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Samarreta taronja amb el logotip FARS dibuixat amb línies vermelles.",
+            "es": "Camiseta naranja con el logotipo FARS dibujado con líneas rojas.",
+            "en": "Orange T-shirt with the FARS logo drawn in red lines."
+          }
+        },
+        {
+          "file": "fars-dessuadora-negra.jpg",
+          "w": 490,
+          "h": 548,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Dessuadora negra amb cremallera i una figura encaputxada en blanc, amb el logotip FARS.",
+            "es": "Sudadera negra con cremallera y una figura encapuchada en blanco, con el logotipo FARS.",
+            "en": "Black zip-up sweatshirt with a hooded figure in white, with the FARS logo."
+          }
+        },
+        {
+          "file": "fars-dessuadora-camuflatge-davant.jpg",
+          "w": 555,
+          "h": 543,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Dessuadora de camuflatge amb cremallera i el logotip FARS en vermell, vista davantera.",
+            "es": "Sudadera de camuflaje con cremallera y el logotipo FARS en rojo, vista frontal.",
+            "en": "Camouflage zip-up sweatshirt with the FARS logo in red, front view."
+          }
+        },
+        {
+          "file": "fars-dessuadora-camuflatge-darrera.jpg",
+          "w": 565,
+          "h": 543,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "La mateixa dessuadora de camuflatge, vista per darrere, amb una figura vermella.",
+            "es": "La misma sudadera de camuflaje, vista por detrás, con una figura roja.",
+            "en": "The same camouflage sweatshirt, seen from behind, with a red figure."
+          }
+        },
+        {
+          "file": "fars-figures-dibuix.png",
+          "w": 749,
+          "h": 453,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Tres figures amb cresta agafades de la mà, en dibuix de tinta.",
+            "es": "Tres figuras con cresta cogidas de la mano, en dibujo de tinta.",
+            "en": "Three crested figures holding hands, in an ink drawing."
+          }
+        },
+        {
+          "file": "fars-banner.jpg",
+          "w": 1091,
+          "h": 394,
+          "board": true,
+          "boardSize": 430,
+          "alt": {
+            "ca": "El logotip FARS en blanc sobre una fotografia nocturna d’un passeig amb palmeres.",
+            "es": "El logotipo FARS en blanco sobre una fotografía nocturna de un paseo con palmeras.",
+            "en": "The FARS logo in white over a night photograph of a promenade with palm trees."
+          }
+        },
+        {
+          "file": "fars-cartera-vermella.jpg",
+          "w": 1023,
+          "h": 682,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Cartera de pell vermella amb tatxes metàl·liques i l’estrella FARS en relleu.",
+            "es": "Cartera de piel roja con tachuelas metálicas y la estrella FARS en relieve.",
+            "en": "Red leather wallet with metal studs and the FARS star in relief."
+          }
+        },
+        {
+          "file": "fars-carteres-1.jpg",
+          "w": 546,
+          "h": 457,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Quatre carteres de pell de colors amb l’estrella FARS gravada, sobre una planxa de tall verda.",
+            "es": "Cuatro carteras de piel de colores con la estrella FARS grabada, sobre una plancha de corte verde.",
+            "en": "Four coloured leather wallets with the FARS star engraved, on a green cutting mat."
+          }
+        },
+        {
+          "file": "fars-carteres-2.jpg",
+          "w": 546,
+          "h": 464,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Carteres de pell blaves, grises i taronges amb figures i lletres gravades.",
+            "es": "Carteras de piel azules, grises y naranjas con figuras y letras grabadas.",
+            "en": "Blue, grey and orange leather wallets with engraved figures and lettering."
+          }
+        },
+        {
+          "file": "fars-carteres-munt.jpg",
+          "w": 591,
+          "h": 956,
+          "board": true,
+          "boardSize": 255,
+          "alt": {
+            "ca": "Un munt de carteres de pell de colors sobre una taula de fusta.",
+            "es": "Un montón de carteras de piel de colores sobre una mesa de madera.",
+            "en": "A pile of coloured leather wallets on a wooden table."
+          }
+        }
+      ]
+    }
+  ]
+}

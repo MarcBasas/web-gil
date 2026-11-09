@@ -44,19 +44,51 @@ El naranja tiene 3,2:1 sobre el azul (válido para líneas y anillos de foco). N
 Botones `cat · es · en` abajo a la izquierda, frente al botón Lista/Tablero. Cambian todo: interfaz, títulos, descripciones, biografía, CV, textos alternativos de las imágenes, el visor y `<html lang>`.
 
 - **Qué idioma sale al entrar:** `?lang=es` en la dirección (útil para enviar un enlace en un idioma concreto) → la última elección guardada en ese navegador → el idioma del navegador si es cat, es o en → inglés.
-- **El catalán es el original** (`works.js`). El castellano y el inglés los ha traducido Claude: **Gil debe revisarlos**.
-- **Editar traducciones:** `docs/assets/js/i18n.js`. Si se añade una obra o una imagen en `works.js`, hay que añadir su traducción allí; mientras falte, la consola avisa («sin traducción») y se muestra el catalán.
+- **El catalán es el original**. El castellano y el inglés los ha traducido Claude: **Gil debe revisarlos**.
+- **Dónde están:** cada texto del contenido lleva sus tres idiomas dentro de `docs/content/*.json` (`{ "ca": "...", "es": "...", "en": "..." }`). Los textos de la interfaz (botones, avisos) están en `docs/assets/js/i18n.js`.
+- **Si falta una traducción** se muestra el catalán (nunca queda en blanco) y el validador lo avisa.
 - Los títulos de las obras («Omplint el buit», Rec.0, FARS) se dejan en el original.
 
 ## Vista en lista: scroll
 
 La lista tiene su propio contenedor con scroll en vez de usar el de la página. Así la página no cambia de ancho al pasar de Tablero a Lista y los botones del borde no se desplazan. La barra es naranja `#ff8a3d` sobre fondo transparente y sin flechas (`::-webkit-scrollbar` en Chrome/Edge/Safari, `scrollbar-color` en Firefox). También se aplica a «Sobre mí».
 
-## Cómo editar el contenido
+## Contenido de Taller (archivos JSON)
 
-- **Textos, años y descripciones de las imágenes:** `docs/assets/js/works.js` (catalán, el original). Las tres propuestas leen de ahí; Taller además traduce con `i18n.js`.
-- **Imágenes:** `docs/assets/img/`. Añadir una obra = copiar la foto allí y añadir una línea en `works.js`.
+Taller no lleva el contenido escrito en el código: lo lee de `docs/content/`. Cambiar el contenido no requiere tocar JavaScript.
+
+| Archivo | Qué contiene |
+|---|---|
+| `site.json` | **`boardLimit`**: el tope de fotos del tablero (hoy 42). Y las categorías (nombre en 3 idiomas). |
+| `projects.json` | Proyectos y sus fotos. Cada foto lleva **`"board": true/false`**. |
+| `about.json` | Sobre mí: biografía, estudios, experiencia, contacto, retrato. |
+
+**Dos vistas, dos reglas:**
+- **Lista:** muestra *todos* los proyectos y *todas* sus fotos, sin límite.
+- **Tablero:** solo las fotos con `"board": true`, hasta `boardLimit`. Las demás siguen existiendo y se ven en la lista. Si hay más marcadas que el tope se muestran las primeras (en orden de proyectos) y la consola avisa. Si no hay ninguna marcada, se muestran las primeras para que no quede vacío. Con menos fotos el tablero se encoge para mantener la densidad; con más, crece.
+- Desde el tablero, el visor ampliado recorre solo las fotos del tablero de ese proyecto; desde la lista, todas.
+- Los filtros del tablero solo ofrecen categorías que tengan alguna foto en él.
+
+**Añadir una foto:** copiarla a `docs/assets/img/` y añadir en el proyecto un bloque `{ "file", "w", "h", "board", "alt": { ca, es, en } }` (`w` y `h` son los píxeles reales). `boardSize` es opcional: si no se pone, se calcula según el tamaño de la foto.
+
+**Añadir un proyecto:** un bloque nuevo en `projects.json` con `id` (minúsculas y guiones), `category` (una de `site.json`), `year`, `place`, `title`, `text` y sus `photos`.
+
+**Los dibujos del fondo (stickers) no son contenido editable.** Viven en `docs/assets/stickers/`, independientes de los proyectos: se pueden quitar fotos o proyectos sin que desaparezcan.
+
+### Validar antes de publicar
+
+```powershell
+node tools/validate-content.mjs
+```
+
+No necesita instalar nada. Da **ERROR** (no publicar) si: hay más fotos marcadas que el tope, falta una imagen, `w`/`h` no coinciden con la foto real, falta un texto alternativo en catalán, la categoría no existe, un `id` está repetido, o un JSON está roto. Da **AVISO** (no bloquea) por traducciones que faltan, imágenes sin usar, archivos de más de 1,5 MB o `boardSize` fuera de rango.
+
+> Paper y Sala **no** usan estos archivos: siguen leyendo `docs/assets/js/works.js`, congelados como estaban. Los cambios en `content/` no les afectan.
+
+## Cómo editar el diseño
+
 - **Diseño de cada propuesta:** `docs/<propuesta>/*.css` y `*.js`. Los colores y tamaños principales están en las primeras líneas de cada CSS.
+- **Interfaz de Taller (botones, avisos):** `docs/assets/js/i18n.js`.
 
 ## Decisiones y cosas a confirmar con Gil
 
@@ -67,6 +99,7 @@ La lista tiene su propio contenedor con scroll en vez de usar el de la página. 
 - **Calidad de imagen:** las fotos salen del PDF (≈1090 px de ancho las instalaciones, ≈500 px las de FARS), ya comprimido. Bien para una presentación; para la versión final conviene pedir los originales.
 - **Tipografía:** su documento usa *ITC Avant Garde Gothic Pro*. Aquí se usa **Jost** (licencia libre, autoalojada en `assets/fonts/`), muy próxima. Si Gil tiene Adobe Creative Cloud puede cargar la original con Adobe Fonts (revisar la licencia web).
 - **Obras sin foto:** «Hamlet» (escenografía, 2024) solo aparece en el listado del CV.
+- **Fotos del tablero:** de momento las 42 están marcadas (`board: true`), así que el tablero es idéntico al aprobado. Gil decidirá cuáles destacar.
 - **Traducción de «Taulell»** (el botón que vuelve del modo lista): «Tablero» en castellano y «Board» en inglés. Cambiable en `i18n.js` (`v_board`).
 
 ## Compatibilidad

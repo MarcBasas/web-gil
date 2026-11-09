@@ -12,9 +12,10 @@
   <link rel="stylesheet" href="../assets/css/base.css">
   <link rel="stylesheet" href="../assets/css/viewer.css">
   <link rel="stylesheet" href="taller.css">
-  <script src="../assets/js/works.js"></script>
+  <!-- Ordre important: data.js crea GIL i comença a descarregar el contingut (docs/content/*.json);
+       i18n.js hi afegeix l'idioma; taller.js espera GIL.ready i construeix la pàgina. -->
+  <script src="../assets/js/data.js"></script>
   <script src="../assets/js/viewer.js"></script>
-  <!-- Ordre important: i18n.js tradueix GIL abans que taller.js construeixi la pàgina -->
   <script src="../assets/js/i18n.js" defer></script>
   <script src="taller.js" defer></script>
 </head>

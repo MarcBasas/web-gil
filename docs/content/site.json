@@ -1,0 +1,32 @@
+{
+  "boardLimit": 42,
+  "categories": [
+    {
+      "id": "installations",
+      "cover": true,
+      "label": {
+        "ca": "Instal·lacions",
+        "es": "Instalaciones",
+        "en": "Installations"
+      }
+    },
+    {
+      "id": "setdesign",
+      "cover": true,
+      "label": {
+        "ca": "Escenografia",
+        "es": "Escenografía",
+        "en": "Set design"
+      }
+    },
+    {
+      "id": "fars",
+      "cover": false,
+      "label": {
+        "ca": "FARS",
+        "es": "FARS",
+        "en": "FARS"
+      }
+    }
+  ]
+}

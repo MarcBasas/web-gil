@@ -1,0 +1,113 @@
+{
+  "name": "Gil Farrés Hernàndez",
+  "shortName": "Gil Farrés",
+  "email": "gilfarres@gmail.com",
+  "instagram": {
+    "handle": "@gfars_",
+    "url": "https://www.instagram.com/gfars_/"
+  },
+  "place": "Igualada, Barcelona",
+  "portfolioYear": "2026",
+  "portrait": {
+    "file": "gil-retrat.jpg",
+    "w": 527,
+    "h": 657,
+    "alt": {
+      "ca": "Retrat de Gil Farrés.",
+      "es": "Retrato de Gil Farrés.",
+      "en": "Portrait of Gil Farrés."
+    }
+  },
+  "bio": [
+    {
+      "ca": "Graduat el 2025 en Arts i Disseny a l’Escola Massana, soc una persona creativa, curiosa i amb una mirada oberta cap a les noves tendències i formes d’expressió. M’interessa investigar i innovar des de l’actualitat, tenint sempre presents les tendències artístiques i culturals com a punt de partida per desenvolupar noves idees i projectes.",
+      "es": "Graduado en 2025 en Artes y Diseño en la Escola Massana, soy una persona creativa, curiosa y con una mirada abierta hacia las nuevas tendencias y formas de expresión. Me interesa investigar e innovar desde la actualidad, teniendo siempre presentes las tendencias artísticas y culturales como punto de partida para desarrollar nuevas ideas y proyectos.",
+      "en": "I graduated in Arts and Design from the Escola Massana in 2025. I am a creative, curious person with an open mind towards new trends and forms of expression. I am interested in researching and innovating from the present, always taking artistic and cultural trends as a starting point for developing new ideas and projects."
+    },
+    {
+      "ca": "La meva experiència en àmbits tan diversos com el treball analògic, artesanal i digital m’ha permès adquirir una mirada transversal i explorar diferents maneres d’entendre i materialitzar la creativitat. Aquesta combinació de tècniques i perspectives em permet adaptar-me a diferents processos de treball i trobar noves formes de resoldre i desenvolupar projectes.",
+      "es": "Mi experiencia en ámbitos tan diversos como el trabajo analógico, artesanal y digital me ha permitido adquirir una mirada transversal y explorar distintas maneras de entender y materializar la creatividad. Esta combinación de técnicas y perspectivas me permite adaptarme a distintos procesos de trabajo y encontrar nuevas formas de resolver y desarrollar proyectos.",
+      "en": "My experience in fields as diverse as analogue, handcrafted and digital work has given me a cross-disciplinary outlook and let me explore different ways of understanding and materialising creativity. This combination of techniques and perspectives allows me to adapt to different working processes and find new ways of solving and developing projects."
+    },
+    {
+      "ca": "He participat en projectes artístics, culturals i de producció, com el projecte propi «Omplint el buit», actualment viu i exposat en el marc del Balloon Festival, així com en tasques d’ajudant de direcció creativa i producció al festival Rec.0 d’Igualada. També he treballat en el disseny i la producció d’escenografies per a diferents projectes, explorant la relació entre espai, materials i narrativa visual.",
+      "es": "He participado en proyectos artísticos, culturales y de producción, como el proyecto propio «Omplint el buit», actualmente en marcha y expuesto en el marco del Balloon Festival, así como en tareas de ayudante de dirección creativa y producción en el festival Rec.0 de Igualada. También he trabajado en el diseño y la producción de escenografías para distintos proyectos, explorando la relación entre espacio, materiales y narrativa visual.",
+      "en": "I have taken part in artistic, cultural and production projects, such as my own project “Omplint el buit”, currently live and on show at the Balloon Festival, and as assistant creative director and producer at the Rec.0 festival in Igualada. I have also designed and produced sets for a range of projects, exploring the relationship between space, materials and visual narrative."
+    },
+    {
+      "ca": "Actualment busco continuar creixent professionalment i ampliar els meus coneixements, descobrint nous camps, tècniques i formes de treball que em permetin seguir desenvolupant projectes amb una mirada creativa, contemporània i experimental.",
+      "es": "Actualmente busco seguir creciendo profesionalmente y ampliar mis conocimientos, descubriendo nuevos campos, técnicas y formas de trabajo que me permitan seguir desarrollando proyectos con una mirada creativa, contemporánea y experimental.",
+      "en": "I am currently looking to keep growing professionally and broaden my knowledge, discovering new fields, techniques and ways of working that let me keep developing projects with a creative, contemporary and experimental outlook."
+    }
+  ],
+  "education": [
+    {
+      "year": "2025",
+      "title": {
+        "ca": "Grau universitari en Arts i Disseny",
+        "es": "Grado universitario en Artes y Diseño",
+        "en": "University degree in Arts and Design"
+      },
+      "place": "Escola Massana, Barcelona"
+    },
+    {
+      "year": "2020",
+      "title": {
+        "ca": "Batxillerat artístic",
+        "es": "Bachillerato artístico",
+        "en": "Arts baccalaureate"
+      },
+      "place": "IES Joan Mercader, Igualada"
+    }
+  ],
+  "experience": [
+    {
+      "year": "2024",
+      "text": {
+        "ca": "Producció de complements per a marca pròpia (@gfars_)",
+        "es": "Producción de complementos para marca propia (@gfars_)",
+        "en": "Production of accessories for a personal label (@gfars_)"
+      }
+    },
+    {
+      "year": "2024",
+      "text": {
+        "ca": "Disseny i producció d’escenografia per a l’espectacle «Hamlet», d’Albert Pla i Peyu",
+        "es": "Diseño y producción de escenografía para el espectáculo «Hamlet», de Albert Pla y Peyu",
+        "en": "Set design and production for the show “Hamlet”, by Albert Pla and Peyu"
+      }
+    },
+    {
+      "year": "2025",
+      "text": {
+        "ca": "Presentació del projecte «Omplint el buit» (instal·lació)",
+        "es": "Presentación del proyecto «Omplint el buit» (instalación)",
+        "en": "Presentation of the project “Omplint el buit” (installation)"
+      }
+    },
+    {
+      "year": "2025",
+      "text": {
+        "ca": "Disseny i producció d’escenografia per a l’encesa de llums de Nadal d’Igualada, per a l’Ajuntament d’Igualada",
+        "es": "Diseño y producción de escenografía para el encendido de las luces de Navidad de Igualada, para el Ayuntamiento de Igualada",
+        "en": "Set design and production for the Igualada Christmas lights switch-on, for the Igualada City Council"
+      }
+    },
+    {
+      "year": "2026",
+      "text": {
+        "ca": "Ajudant de direcció creativa i producció al festival Rec.0",
+        "es": "Ayudante de dirección creativa y producción en el festival Rec.0",
+        "en": "Assistant creative director and producer at the Rec.0 festival"
+      }
+    },
+    {
+      "year": "2026",
+      "text": {
+        "ca": "Instal·lació «Omplint el buit» a l’European Balloon Festival, en col·laboració amb Iglusdevent",
+        "es": "Instalación «Omplint el buit» en el European Balloon Festival, en colaboración con Iglusdevent",
+        "en": "Installation “Omplint el buit” at the European Balloon Festival, in collaboration with Iglusdevent"
+      }
+    }
+  ]
+}
