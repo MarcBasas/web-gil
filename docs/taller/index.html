@@ -19,6 +19,15 @@
 <body data-view="canvas">
   <a class="skip-link" href="#llista">Salta a la llista d’obres</a>
 
+  <!-- Filtre SVG: converteix un dibuix negre sobre blanc en traç taronja transparent (capa d'accent del fons) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <!-- La regió del filtre = la caixa de la imatge. Per defecte s'estén un 10 % més i, com que la fórmula
+         converteix el «negre transparent» en taronja opac, apareixien franges massisses a les vores. -->
+    <filter id="tint-orange" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="0 0 0 0 1   0 0 0 0 0.541   0 0 0 0 0.239   -0.2976 -1.0013 -0.1011 0 1.25"/>
+    </filter>
+  </svg>
+
   <h1 class="wordmark">
     <span>GIL</span>
     <span>FARRÉS</span>
@@ -28,6 +37,9 @@
        La del fons és germana (no filla) perquè el multiply es fongui amb el blau i amb el nom. -->
   <div class="world world--back" aria-hidden="true">
     <div class="layer" id="layer-back"></div>
+  </div>
+  <div class="world world--accent" aria-hidden="true">
+    <div class="layer" id="layer-accent"></div>
   </div>
   <div class="world" id="world" aria-label="Taula de treball. Arrossega per explorar les obres.">
     <div class="layer" id="layer-main"></div>

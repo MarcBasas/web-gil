@@ -7,10 +7,16 @@
   --cobalt: #2a44cf;
   --cobalt-deep: #1d33ad;
   --on: #ffffff;
+  /* Accent: el taronja de la columna de Rec.0 i de les seves samarretes, una mica més clar perquè
+     tingui ≥ 3:1 de contrast sobre el blau (línies i anells de focus). El text sobre taronja va en blau marí (7:1). */
+  --orange: #ff8a3d;
+  --navy: #0d1650;
   --margin: clamp(14px, 2.2vw, 32px);
   --viewer-bg: var(--cobalt-deep);
   --viewer-ink: #ffffff;
+  --viewer-accent: var(--orange);
 }
+::selection { background: var(--orange); color: var(--navy); }
 
 html { background: var(--cobalt); color: var(--on); }
 body {
@@ -24,8 +30,9 @@ body {
 body[data-view="list"] { overflow: auto; }
 
 /* ───── El nom, fix al fons ───── */
+/* Capes (de baix a dalt): dibuixos del fons (z 1) · el nom (z 2, abans al DOM) · fotos (z 2, després al DOM) */
 .wordmark {
-  position: fixed; inset: 0; z-index: 0;
+  position: fixed; inset: 0; z-index: 2;
   display: grid; place-content: center; text-align: center;
   font-size: min(23vw, 36svh);
   font-weight: 100; line-height: .88; letter-spacing: -.01em;
@@ -45,6 +52,8 @@ body[data-view="list"] .wordmark { display: none; }
 }
 .world.is-dragging { cursor: grabbing; }
 .world--back { z-index: 1; pointer-events: none; mix-blend-mode: multiply; cursor: auto; }
+/* capa d'accent: mateixa profunditat que el fons, però sense multiply (el taronja no es fon amb el blau) */
+.world--accent { z-index: 1; pointer-events: none; cursor: auto; }
 body[data-view="list"] .world { display: none; }
 
 @keyframes arriba {
@@ -65,12 +74,15 @@ body[data-view="list"] .world { display: none; }
 }
 .piece img { width: 100%; height: auto; pointer-events: none; -webkit-user-drag: none; }
 .piece:hover, .piece:focus-visible, .piece.is-focus { transform: scale(1.035); z-index: 3; }
-.piece:focus-visible, .piece.is-focus { outline: 2px solid #fff; outline-offset: 5px; }
+.piece:focus-visible, .piece.is-focus { outline: 3px solid var(--orange); outline-offset: 5px; }
 .piece.is-dim { opacity: .14; filter: saturate(0); pointer-events: none; }
 
+/* rètol que apareix en passar per sobre una obra: etiqueta taronja amb text blau marí */
 .piece__cap {
-  position: absolute; left: 0; top: 100%; margin-top: .55rem;
-  font-size: .82rem; font-weight: 400; line-height: 1.2; white-space: nowrap;
+  position: absolute; left: 0; top: 100%; margin-top: .6rem;
+  padding: .3rem .6rem;
+  background: var(--orange); color: var(--navy);
+  font-size: .82rem; font-weight: 500; line-height: 1.2; white-space: nowrap;
   opacity: 0; transform: translateY(-3px);
   transition: opacity .25s ease, transform .25s ease;
   pointer-events: none;
@@ -80,6 +92,8 @@ body[data-view="list"] .world { display: none; }
 /* capa del fons: grafisme FARS en negre; el multiply de .world--back el fon amb el blau */
 .art { position: absolute; opacity: .7; pointer-events: none; }
 .art img { width: 100%; height: auto; }
+.art--orange { opacity: .95; }
+.art--orange img { filter: url(#tint-orange); clip-path: inset(1px); }   /* 1px: evita una línia a la vora per l'antialiàsing */
 
 /* ───── Interfície ───── */
 .ui {
@@ -101,8 +115,9 @@ body[data-view="list"] .world { display: none; }
 body[data-view="list"] .ui::before { background: var(--cobalt); }
 .ui__nav { display: flex; gap: clamp(1rem, 2.4vw, 2rem); }
 .ui a { text-decoration: none; }
-.ui button, .ui a { padding-block: .2rem; border-bottom: 1px solid transparent; }
-.ui button:hover, .ui a:hover, .ui [aria-pressed="true"] { border-bottom-color: currentColor; }
+.ui button, .ui a { padding-block: .2rem; border-bottom: 2px solid transparent; }
+.ui button:hover, .ui a:hover, .ui [aria-pressed="true"] { border-bottom-color: var(--orange); }
+.ui :focus-visible { outline-color: var(--orange); }
 
 .hint { transition: opacity .6s ease; margin-right: auto; font-weight: 300; }
 .hint.is-gone { opacity: 0; }
@@ -126,6 +141,8 @@ body[data-view="list"] .hint { display: none; }
 .list__thumbs { grid-column: 6 / -1; display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; }
 .list__thumbs button { display: block; padding: 0; flex: 0 1 auto; }
 .list__thumbs img { height: clamp(110px, 17vw, 230px); width: auto; }
+.list__thumbs button:hover img, .list__thumbs button:focus-visible img { outline: 3px solid var(--orange); outline-offset: 3px; }
+.list__thumbs button:focus-visible { outline: none; }
 
 /* ───── Sobre mi ───── */
 .about {
@@ -140,8 +157,10 @@ body[data-view="list"] .hint { display: none; }
   display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 12px; row-gap: 2.4rem;
   max-width: 1500px; margin-inline: auto;
 }
-.about__close { position: fixed; top: var(--margin); right: var(--margin); z-index: 2; font-size: .98rem; font-weight: 400; border-bottom: 1px solid transparent; padding-block: .2rem; }
-.about__close:hover { border-bottom-color: currentColor; }
+.about__close { position: fixed; top: var(--margin); right: var(--margin); z-index: 2; font-size: .98rem; font-weight: 400; border-bottom: 2px solid transparent; padding-block: .2rem; }
+.about__close:hover { border-bottom-color: var(--orange); }
+.about a { text-decoration-color: var(--orange); text-decoration-thickness: 2px; }
+.about :focus-visible { outline-color: var(--orange); }
 .about h2 { grid-column: 1 / -1; font-size: clamp(2.4rem, 7vw, 6.5rem); font-weight: 100; line-height: .95; letter-spacing: -.01em; }
 .about figure { grid-column: 1 / span 3; align-self: start; font-size: .88rem; }
 .about figure img { width: 100%; height: auto; margin-bottom: .5rem; }

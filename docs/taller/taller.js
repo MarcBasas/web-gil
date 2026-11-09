@@ -13,6 +13,7 @@
   const world = document.getElementById('world');
   const layerMain = document.getElementById('layer-main');
   const layerBack = document.getElementById('layer-back');
+  const layerAccent = document.getElementById('layer-accent');
   const hint = document.getElementById('hint');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const mod = (n, m) => ((n % m) + m) % m;
@@ -24,12 +25,13 @@
   const itemsDe = (p) => p.imatges.map((im) => ({ src: im.src, alt: im.alt, w: im.w, h: im.h, titol: p.titol, meta: metaDe(p), text: p.text }));
   const obre = (p, i, origin) => GilViewer.open({ items: itemsDe(p), index: i, origin });
 
-  // grafisme per a la capa del fons (negre sobre blanc: es fon amb el blau amb multiply)
+  // grafisme per a la capa del fons (negre sobre blanc). Per defecte es fon amb el blau amb multiply;
+  // els marcats amb 'taronja' es tenyeixen i van a la capa d'accent (sense multiply).
   const fons = [
-    ['fars-logo.png', 'h', 720], ['fars-estrella.jpg', 'h', 640], ['fars-figures-negres.png', 'w', 820],
-    ['fars-arma-paraigua.jpg', 'w', 920], ['fars-cara.jpg', 'w', 520], ['fars-figures-dibuix.png', 'w', 700],
+    ['fars-logo.png', 'h', 720], ['fars-estrella.jpg', 'h', 640, 'taronja'], ['fars-figures-negres.png', 'w', 820, 'taronja'],
+    ['fars-arma-paraigua.jpg', 'w', 920, 'taronja'], ['fars-cara.jpg', 'w', 520], ['fars-figures-dibuix.png', 'w', 700],
     ['fars-estrella-3d.jpg', 'h', 560],
-  ].map(([file, side, size]) => ({ im: G.per('fars').imatges.find((x) => x.file === file), side, size }));
+  ].map(([file, side, size, tint]) => ({ im: G.per('fars').imatges.find((x) => x.file === file), side, size, taronja: tint === 'taronja' }));
 
   /* ───────── Utilitats de col·locació ───────── */
   function mulberry32(a) {
@@ -68,13 +70,14 @@
   const layers = [];       // { el, TW, TH, speed }
   let primary = [];        // peces reals (botons) de la rajola principal: { el, cx, cy, tipus }
   let S = 1;
+  let accent = { TW: 1, TH: 1, items: [] };   // dibuixos taronja del fons (per triar el punt d'inici)
 
   function escala() { return Math.max(0.62, Math.min(1.5, innerWidth / 1440)); }
 
   function construeix() {
     S = escala();
     layers.length = 0; primary = [];
-    layerMain.replaceChildren(); layerBack.replaceChildren();
+    layerMain.replaceChildren(); layerBack.replaceChildren(); layerAccent.replaceChildren();
 
     /* capa principal */
     const rand = mulberry32(11);
@@ -103,7 +106,8 @@
           primary.push({ el, cx: c.x + c.w / 2, cy: c.y + c.h / 2, tipus: p.tipus, p, i });
         } else {
           el.setAttribute('aria-hidden', 'true');
-          el.innerHTML = `<img src="${esc(im.src)}" width="${im.w}" height="${im.h}" alt="" decoding="async">`;
+          // els clons també porten el rètol: sovint la còpia que es veu en pantalla és un clon
+          el.innerHTML = `<img src="${esc(im.src)}" width="${im.w}" height="${im.h}" alt="" decoding="async"><span class="piece__cap">${esc(p.curt)}, ${esc(p.any)}</span>`;
         }
         tile.append(el);
       });
@@ -119,26 +123,32 @@
     /* capa del fons */
     const randB = mulberry32(5);
     const TWb = 3700 * S, THb = 2600 * S;
-    const rb = fons.map(({ im, side, size }) => {
+    const rb = fons.map(({ im, side, size, taronja }) => {
       const L = size * S;
       const w = side === 'w' ? L : L * (im.w / im.h);
-      return { im, w, h: w * (im.h / im.w) };
+      return { im, w, h: w * (im.h / im.w), taronja };
     });
+    // s'empaqueten tots junts (no es solapen) i després es reparteixen en dues capes de la mateixa profunditat
     const posB = empaqueta(rb, TWb, THb, randB, 60 * S);
+    accent = { TW: TWb, TH: THb, items: posB.filter((c) => c.r.taronja).map((c) => ({ x: c.x, y: c.y, w: c.w, h: c.h })) };
     for (let j = 0; j < 2; j++) for (let i = 0; i < 2; i++) {
-      const tile = document.createElement('div');
-      tile.className = 'tile';
-      tile.style.cssText = `width:${TWb}px;height:${THb}px;left:${i * TWb}px;top:${j * THb}px`;
+      const tiles = [layerBack, layerAccent].map((capa) => {
+        const tile = document.createElement('div');
+        tile.className = 'tile';
+        tile.style.cssText = `width:${TWb}px;height:${THb}px;left:${i * TWb}px;top:${j * THb}px`;
+        capa.append(tile);
+        return tile;
+      });
       posB.forEach((c) => {
         const a = document.createElement('div');
-        a.className = 'art';
+        a.className = c.r.taronja ? 'art art--orange' : 'art';
         a.style.cssText = `left:${c.x.toFixed(1)}px;top:${c.y.toFixed(1)}px;width:${c.w.toFixed(1)}px`;
         a.innerHTML = `<img src="${esc(c.r.im.src)}" alt="" width="${c.r.im.w}" height="${c.r.im.h}" decoding="async">`;
-        tile.append(a);
+        tiles[c.r.taronja ? 1 : 0].append(a);
       });
-      layerBack.append(tile);
     }
     layers.push({ el: layerBack, TW: TWb, TH: THb, speed: 0.55 });
+    layers.push({ el: layerAccent, TW: TWb, TH: THb, speed: 0.55 });
     aplica();
     refiltra();
   }
@@ -361,7 +371,23 @@
         const iy = Math.max(0, Math.min(y0 + d.h, (vh + caixa.h) / 2) - Math.max(y0, (vh - caixa.h) / 2));
         cobert += ix * iy;
       }
-      const s = Math.abs(cobert / (caixa.w * caixa.h) - 0.2) + (visibles < 6 ? 1 : 0) + Math.max(0, minObres - obres) * 0.5;
+      // acent: que es vegi algun dibuix taronja del fons sense quedar tapat per les fotos
+      let obert = 0;
+      const sp = layers[1].speed;
+      const offX = mod((cx - vw / 2) * sp, accent.TW), offY = mod((cy - vh / 2) * sp, accent.TH);
+      for (const a of accent.items) for (let ti = 0; ti < 2; ti++) for (let tj = 0; tj < 2; tj++) {
+        const ax = a.x + ti * accent.TW - offX, ay = a.y + tj * accent.TH - offY;
+        const vx0 = Math.max(ax, 40), vx1 = Math.min(ax + a.w, vw - 40), vy0 = Math.max(ay, 90), vy1 = Math.min(ay + a.h, vh - 130);
+        if (vx1 <= vx0 || vy1 <= vy0) continue;
+        let tapat = 0;
+        for (const d of dades) for (const ox of [-l.TW, 0, l.TW]) for (const oy of [-l.TH, 0, l.TH]) {
+          const x0 = d.x + ox - (cx - vw / 2), y0 = d.y + oy - (cy - vh / 2);
+          tapat += Math.max(0, Math.min(x0 + d.w, vx1) - Math.max(x0, vx0)) * Math.max(0, Math.min(y0 + d.h, vy1) - Math.max(y0, vy0));
+        }
+        obert = Math.max(obert, ((vx1 - vx0) * (vy1 - vy0) - tapat) / (a.w * a.h));
+      }
+      const s = Math.abs(cobert / (caixa.w * caixa.h) - 0.2) + (visibles < 6 ? 1 : 0) + Math.max(0, minObres - obres) * 0.5
+              - Math.min(obert / 0.45, 1) * 0.7;
       if (s < score) { score = s; millor = { x: cx, y: cy }; }
     }
     return millor;

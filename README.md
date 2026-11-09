@@ -7,7 +7,7 @@ Sin build ni dependencias: HTML, CSS y JavaScript actuales, y todas las rutas so
 |---|---|---|
 | `/` | Hub | Página de entrada para enseñar las tres |
 | `/paper/` | **Paper** | El PDF hecho scroll: blanco, tipografía fina, fotos grandes. La foto principal «llena el vacío» al entrar. |
-| `/taller/` | **Taller** | Mesa de trabajo infinita en azul cobalto (el de las cajas de Rec.0). Se arrastra en todas direcciones, con inercia y dos profundidades. |
+| `/taller/` | **Taller** ✅ *elegida* | Mesa de trabajo infinita en azul cobalto (el de las cajas de Rec.0), con acento naranja `#ff8a3d` (el de la columna de Rec.0). Se arrastra en todas direcciones, con inercia y dos profundidades. |
 | `/sala/` | **Sala** | Exposición que se recorre en horizontal. Cada sala tiene el color de su proyecto, rotulación gigante a lo vinilo de pared y focos de luz. |
 
 ## Verlo en local
@@ -27,6 +27,17 @@ Abrir <http://localhost:8000/>. Con doble clic sobre el `.html` el contenido car
 `docs/.nojekyll` evita que GitHub procese la carpeta con Jekyll. Como todas las rutas son relativas, funciona igual en una subruta de repositorio que en un dominio propio.
 
 Todas las páginas llevan `noindex` mientras sean un borrador para presentar. Quitarlo (`<meta name="robots">`) cuando se elija la definitiva.
+
+## Paleta de Taller
+
+| Color | Valor | Uso |
+|---|---|---|
+| Azul cobalto | `#2a44cf` | Fondo |
+| Azul profundo | `#1d33ad` | Visor y «Sobre mi» |
+| Naranja | `#ff8a3d` | Acentos: subrayado activo, anillo de foco, rótulos de obra, figuras de FARS teñidas, selección de texto |
+| Azul marino | `#0d1650` | Texto sobre naranja (contraste 7,2:1) |
+
+El naranja tiene 3,2:1 sobre el azul (válido para líneas y anillos de foco). No se usa para texto fino sobre azul. Los colores están al inicio de `docs/taller/taller.css`.
 
 ## Cómo editar el contenido
 

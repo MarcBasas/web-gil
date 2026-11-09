@@ -39,7 +39,8 @@
 
 .viewer__nav { display: flex; gap: 1.6rem; font-weight: 400; }
 .viewer__nav button { padding: .35rem 0; border-bottom: 1px solid transparent; }
-.viewer__nav button:hover { border-bottom-color: currentColor; }
+.viewer__nav button:hover { border-bottom-color: var(--viewer-accent, currentColor); }
+.viewer :focus-visible { outline-color: var(--viewer-accent, currentColor); }
 .viewer__nav button[disabled] { opacity: .3; pointer-events: none; }
 
 /* Transició de la foto cap al visor (només si el navegador suporta View Transitions) */
