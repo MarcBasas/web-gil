@@ -90,6 +90,7 @@ Las otras dos propuestas siguen en el repositorio, pero **quedan «mudas»**: na
 - Un **panel propio y pequeño** con tres espacios: Sobre mí, Proyectos y Tablero. No se usa un CMS genérico porque ninguno ofrece bien «elegir N entre todas las fotos con contador y tope».
 - **Sin servidor que mantener.** Una función serverless (por ejemplo un Cloudflare Worker) guarda un token de GitHub y publica los cambios de Gil con un commit. Gil **no necesitaría cuenta de GitHub**.
 - **Acceso por código al correo** (por ejemplo con Cloudflare Access, gratis por debajo de 50 usuarios). Está por confirmar que encaje con una función serverless.
+- **Matiz posterior (ver el plan):** panel, API y login deben estar en el **mismo origen**, así que el panel se construye **después de migrar a Cloudflare**, no mientras la web siga en GitHub Pages. Esto matiza el orden que se daba por supuesto aquí.
 - **Las fotos se reducen en el navegador** antes de subirlas. Así los originales a máxima resolución nunca llegan al repositorio, y no hace falta un proceso de imágenes aparte.
 - **Validación en dos sitios:** en el panel (para avisar a Gil) y en el servidor (porque lo que llega del navegador no es de fiar). Si algo falla, no se publica y la web sigue como estaba.
 
@@ -103,6 +104,8 @@ Las otras dos propuestas siguen en el repositorio, pero **quedan «mudas»**: na
 | 4 | Validación en el servidor, «deshacer último cambio» y pruebas. | Pendiente |
 
 Estimación aproximada para las fases 2 a 4: **tres o cuatro sesiones** de trabajo, sin haberlo construido, así que puede variar.
+
+**Plan detallado, con el diseño mínimo (`/ponytail`), las fases, la compuerta de calidad (`/clean`) y los riesgos por verificar: [PLAN-PANEL.md](PLAN-PANEL.md).**
 
 **Riesgos conocidos:**
 

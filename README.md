@@ -2,7 +2,7 @@
 
 Portfolio web de Gil Farrés. La página principal es **Taller** (el «Taulell»): una mesa de trabajo infinita en azul cobalto con acento naranja. Sin build ni dependencias: HTML, CSS y JavaScript actuales, y todas las rutas son relativas.
 
-**Qué se ha decidido, qué está hecho y qué falta: [ACUERDOS.md](ACUERDOS.md).** Este README es la guía técnica.
+**Qué se ha decidido, qué está hecho y qué falta: [ACUERDOS.md](ACUERDOS.md).** El plan del panel para que Gil edite solo: [PLAN-PANEL.md](PLAN-PANEL.md). Este README es la guía técnica.
 
 | Ruta | Qué es |
 |---|---|
