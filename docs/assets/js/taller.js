@@ -56,7 +56,7 @@
   // Dibuixos del fons (negre sobre blanc). Per defecte es fonen amb el blau amb multiply;
   // els marcats 'taronja' es tenyeixen i van a la capa d'accent (sense multiply). Fitxers propis, sempre al lloc.
   // [fitxer, amplada, alçada, costat que fixa la mida ('w'|'h'), mida, tint]
-  const stk = (file) => new URL(`../assets/stickers/${file}`, document.baseURI).href;
+  const stk = (file) => new URL(`assets/stickers/${file}`, G.root).href;
   const fons = [
     ['fars-logo.png', 1658, 1906, 'h', 720], ['fars-estrella.jpg', 399, 616, 'h', 640, 'taronja'],
     ['fars-figures-negres.png', 1170, 417, 'w', 820, 'taronja'], ['fars-arma-paraigua.jpg', 1090, 390, 'w', 920, 'taronja'],

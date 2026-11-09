@@ -16,7 +16,7 @@
 (function () {
   'use strict';
   const root = new URL('../../', document.currentScript.src);          // .../docs/
-  const G = (window.GIL = { lang: 'ca', loaded: false, missing: [] });
+  const G = (window.GIL = { lang: 'ca', loaded: false, missing: [], root: root.href });
 
   const REF_SIZE = 0.43;                                                // mida per defecte d'una foto nova = 43 % del costat llarg
   const MIN_SIZE = 220, MAX_SIZE = 540;

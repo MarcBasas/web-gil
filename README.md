@@ -1,14 +1,14 @@
-# Web de Gil Farrés · tres propuestas
+# Web de Gil Farrés
 
-Tres maneras distintas de presentar el portafolio de Gil, listas para publicar en GitHub Pages.
-Sin build ni dependencias: HTML, CSS y JavaScript actuales, y todas las rutas son relativas.
+Portfolio web de Gil Farrés. La página principal es **Taller** (el «Taulell»): una mesa de trabajo infinita en azul cobalto con acento naranja. Sin build ni dependencias: HTML, CSS y JavaScript actuales, y todas las rutas son relativas.
 
-| Subruta | Propuesta | Idea |
-|---|---|---|
-| `/` | Hub | Página de entrada para enseñar las tres |
-| `/paper/` | **Paper** | El PDF hecho scroll: blanco, tipografía fina, fotos grandes. La foto principal «llena el vacío» al entrar. |
-| `/taller/` | **Taller** ✅ *elegida* | Mesa de trabajo infinita en azul cobalto (el de las cajas de Rec.0), con acento naranja `#ff8a3d` (el de la columna de Rec.0). Se arrastra en todas direcciones, con inercia y dos profundidades. |
-| `/sala/` | **Sala** | Exposición que se recorre en horizontal. Cada sala tiene el color de su proyecto, rotulación gigante a lo vinilo de pared y focos de luz. |
+**Qué se ha decidido, qué está hecho y qué falta: [ACUERDOS.md](ACUERDOS.md).** Este README es la guía técnica.
+
+| Ruta | Qué es |
+|---|---|
+| `/` | **Taller**: la web. |
+| `/taller/` | Redirige a `/` conservando `?lang=` y `#`, por si hay enlaces antiguos. |
+| `/paper/` y `/sala/` | Propuestas descartadas y **aparcadas**: siguen en su ruta pero ninguna página enlaza a ellas. Ver [ACUERDOS.md](ACUERDOS.md#3-páginas-aparcadas-paper-y-sala). |
 
 ## Verlo en local
 
@@ -16,18 +16,17 @@ Sin build ni dependencias: HTML, CSS y JavaScript actuales, y todas las rutas so
 python -m http.server 8000 --directory docs
 ```
 
-Abrir <http://localhost:8000/>. Con doble clic sobre el `.html` el contenido carga, pero el navegador bloquea la tipografía en `file://` y se vería con una fuente de sistema: para juzgar el diseño, usar el servidor.
+Abrir <http://localhost:8000/>. Con doble clic sobre el `.html` el navegador bloquea la carga de los datos y la tipografía (`file://`): hace falta el servidor.
 
 ## Publicar en GitHub Pages
 
-1. Crear un repositorio y subir esta carpeta (el `.gitignore` ya deja fuera los PDFs, el CV lleva teléfono y fecha de nacimiento).
+1. Subir el repositorio (el `.gitignore` deja fuera los PDFs: el CV lleva teléfono y fecha de nacimiento).
 2. En GitHub: **Settings → Pages → Build and deployment → Source: Deploy from a branch → Branch `main`, carpeta `/docs`**.
-3. A los pocos minutos estará en `https://<usuario>.github.io/<repo>/`, con las subrutas `/paper/`, `/taller/` y `/sala/`.
+3. A los pocos minutos estará en `https://<usuario>.github.io/<repo>/`.
 
-`docs/.nojekyll` evita que GitHub procese la carpeta con Jekyll. Como todas las rutas son relativas, funciona igual en una subruta de repositorio que en un dominio propio.
+`docs/.nojekyll` evita que GitHub procese la carpeta con Jekyll. Como todas las rutas son relativas, funciona igual en una subruta de repositorio que en un dominio propio. Para mover el sitio a Vercel o Cloudflare, ver [ACUERDOS.md](ACUERDOS.md#7-hosting-privacidad-y-migración).
 
-Todas las páginas llevan `noindex` mientras sean un borrador para presentar. Quitarlo (`<meta name="robots">`) cuando se elija la definitiva.
-
+Las páginas llevan `noindex` mientras sea un borrador para presentar. Quitarlo (`<meta name="robots">` en `docs/index.html`) al publicarla de verdad.
 ## Paleta de Taller
 
 | Color | Valor | Uso |
@@ -37,7 +36,7 @@ Todas las páginas llevan `noindex` mientras sean un borrador para presentar. Qu
 | Naranja | `#ff8a3d` | Acentos: subrayado activo, anillo de foco, rótulos de obra, figuras de FARS teñidas, selección de texto |
 | Azul marino | `#0d1650` | Texto sobre naranja (contraste 7,2:1) |
 
-El naranja tiene 3,2:1 sobre el azul (válido para líneas y anillos de foco). No se usa para texto fino sobre azul. Los colores están al inicio de `docs/taller/taller.css`.
+El naranja tiene 3,2:1 sobre el azul (válido para líneas y anillos de foco). No se usa para texto fino sobre azul. Los colores están al inicio de `docs/assets/css/taller.css`.
 
 ## Idiomas (solo Taller)
 
@@ -87,12 +86,13 @@ No necesita instalar nada. Da **ERROR** (no publicar) si: hay más fotos marcada
 
 ## Cómo editar el diseño
 
-- **Diseño de cada propuesta:** `docs/<propuesta>/*.css` y `*.js`. Los colores y tamaños principales están en las primeras líneas de cada CSS.
-- **Interfaz de Taller (botones, avisos):** `docs/assets/js/i18n.js`.
+- **Diseño de Taller:** `docs/assets/css/taller.css` (colores y tamaños en las primeras líneas) y `docs/assets/js/taller.js` (el lienzo).
+- **Interfaz (botones, avisos):** `docs/assets/js/i18n.js`.
+- **Paper y Sala:** `docs/paper/` y `docs/sala/` (aparcadas, no se mantienen).
 
 ## Decisiones y cosas a confirmar con Gil
 
-- **Idioma:** el original es catalán, como su CV y su portafolio. Taller también está en castellano e inglés (traducciones de Claude, por revisar). Paper y Sala siguen solo en catalán.
+- **Idioma:** el original es catalán, como su CV y su portafolio. Taller también está en castellano e inglés (traducciones de Claude, por revisar).
 - **Datos que no se publican:** teléfono y fecha de nacimiento. Solo aparecen el correo y `@gfars_`, que ya están en el portafolio.
 - **Erratas corregidas** respecto al CV y el PDF («Disseny y producció» → «Disseny i producció», «escenografá» → «escenografia», «Instal.lacio» → «Instal·lació», «FARRÉSHERNÀNDEZ» → «Farrés Hernàndez»). Conviene que él las revise.
 - **Años de formación** tal como constan en el CV (2025 y 2020). Pueden ser año de fin o de inicio: preguntar.
